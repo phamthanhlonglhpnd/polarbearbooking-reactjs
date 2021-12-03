@@ -1,0 +1,33 @@
+.facility {
+    &-img {
+        height: 160px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        &-1 {
+            background-image: url(../../../../assets/images/Facility/114348-bv-viet-duc.jpg);
+        } 
+        &-2 {
+            background-image: url(../../../../assets//images/Facility/095119-benh-vien-cho-ray-h1.jpg);
+        }
+        &-3 {
+            background-image: url(../../../../assets/images/Facility/095412-bv-hung-viet.jpg);
+        }
+        &-4 {
+            background-image: url(../../../../assets/images/Facility/114446-anh-bia-bvk.jpg);
+        }
+        &-5 {
+            background-image: url(../../../../assets/images/Facility/095412-bv-hung-viet.jpg);
+        }
+        &-6 {
+            background-image: url(../../../../assets/images/Facility/093035-benh-vien-thu-cuc-1.jpg);
+        }
+    }
+}
+
+
+
+
+

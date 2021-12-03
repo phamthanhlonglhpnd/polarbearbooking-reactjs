@@ -1,0 +1,36 @@
+.doctor {
+    &-title {
+        font-size: 20px;
+        padding: 30px 0;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    &-btn {
+        padding: 5px 5px;
+        margin: 15px 15px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(45deg, #d85923 15%, #e29338 100%);
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    &-top {
+        display: flex;
+        gap: 30px;
+        padding: 0 30px;
+        margin-bottom: 30px;
+        justify-content: space-between;
+        &-left {
+            width: 50%;
+        }
+        &-right {
+            flex: 1;
+        }
+    }
+    &-bottom {
+        padding: 0 30px;
+        margin-bottom: 30px;
+    }
+}

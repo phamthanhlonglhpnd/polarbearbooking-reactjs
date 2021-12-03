@@ -1,0 +1,40 @@
+.detailClinic {
+    &-title {
+        text-transform: uppercase;
+        color: #162738;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    &-address {
+        margin-bottom: 20px;
+    }
+    &-price {
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+    &-name {
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+    &-btn {
+        min-width: 100px;
+        border: none;
+        outline: none;
+        background-color: #E5C8CA;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    &-detail {
+        &-payment, &-note, &-price {
+            margin-bottom: 20px;
+        }
+        &-title {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    }
+}

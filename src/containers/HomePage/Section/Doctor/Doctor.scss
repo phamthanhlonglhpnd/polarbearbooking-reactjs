@@ -1,0 +1,23 @@
+.doctor { 
+    &-item {
+        border: 1px solid gray;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        padding: 30px 0;
+    }
+    &-img {
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+

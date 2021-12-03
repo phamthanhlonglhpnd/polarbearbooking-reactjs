@@ -1,0 +1,186 @@
+.home-header {
+    z-index: 999;
+    background: #E0A9AF;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    &-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    &-center {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    &-left {
+        width: 25%;
+        text-align: center;
+        i{
+            margin-right: 10px;
+        }
+    }
+    &-right {
+        text-align: center;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+    &-language-VI {
+        margin-right: 10px;
+        opacity: 0.3;
+        font-weight: 600;
+        &:hover {
+            color: #45c3d2;
+            opacity: 1;
+        }
+    }
+    &-language-EN {
+        opacity: 0.3;
+        font-weight: 600;
+        &:hover {
+            color: #45c3d2;
+            opacity: 1;
+        }
+    }
+    &-logo {
+        color: #FFC10E;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    &-name {
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    &-detail {
+        font-size: 12px;
+        cursor: pointer;
+    }
+    &-question {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #45c3d2;
+    }
+}
+
+.banner {
+        margin-top: 80px;
+        background-image: url(../../assets/images/HomeHeader/bookingcare-cover-4.jpg);
+        width: 100vw;
+        height: 85vh;
+        position: relative;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        &-content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            margin-top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    &-title {
+        margin-top: 50px;
+        color: white;
+        text-shadow: 1px 1px 1px #333;
+        text-align: center;
+    }
+    &-search {
+        padding-top: 15px;
+        max-width: 460px;
+        margin: 0 auto;
+        &-write {
+            height: 50px;
+            background: #f7d800;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+        }
+        &-icon {
+            width: 10%;
+        }
+        &-input {
+            outline: none;
+            border: none;
+            background: transparent;
+            flex: 1;
+        }
+        &-aggregate {
+            margin-top: 20px;
+            background: white;
+            max-height: 60vh;
+            min-height: 50px;
+            overflow-y: scroll;
+            display: none;
+        } 
+        &-title {
+            padding: 5px 10px;
+            font-size: 20px;
+            border-bottom: 1px solid #8080808f;
+        }
+        &-result {
+            padding: 5px 10px;
+            border-bottom: 1px solid #8080808f;
+        }
+        &-input:focus ~ &-aggregate {
+            display: block;
+        }
+    }
+    &-service {
+        position: absolute;
+        background-image: linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 1));
+        bottom: 15%;
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 20px;
+        &-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 30px 20px;
+            width: 60%;
+            margin: 0 auto;
+        }
+        &-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        &-box {
+            margin: 0 auto;
+            height: 65px;
+            width: 65px;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+        }
+        &-logo {
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        } 
+        &-name {
+            font-size: 16px;
+            font-weight: 600;
+            &:hover {
+                color: #45c3d2;
+            }
+        }
+    }
+}
+
+.active {
+    color: #45c3d2;
+    opacity: 1;
+}

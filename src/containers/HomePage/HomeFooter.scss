@@ -1,0 +1,62 @@
+.footer {
+    background-color: #EFEFEF;
+    &-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    &-top {
+        display: flex;
+        padding: 25px 0;
+        border-bottom: 1px solid gray;
+    }
+    &-info {
+        width: 50%;
+
+    }
+    &-logo {
+        color: #FFC10E;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    &-service {
+        width: 25%;
+    }
+    &-facility {
+        flex: 1;
+    }
+    &-title {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 5px;
+    } 
+    &-content {
+        margin-bottom: 5px;
+    }
+    &-service {
+        list-style: none;
+    }
+    &-item {
+        cursor: pointer;
+        color: #4BC5D3;
+        padding: 5px 0;
+    }
+    &-listImg {
+        display: flex;
+        align-items: center;
+    }
+    &-img {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 40px;
+        &-1 {
+            background-image: url(../../assets/images/HomeFooter/huong-dan-dang-ky-website-voi-Bo-Cong-Thuong-2.png);
+        }
+        &-2 {
+            background-image: url(../../assets/images/HomeFooter/huong-dan-dang-ky-website-voi-Bo-Cong-Thuong-3.png);
+        }
+    }
+    &-bottom {
+        padding: 30px 0;
+    }
+}
