@@ -67,7 +67,7 @@
             "crud-redux": "Quản lý người sử dụng bằng Redux",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
-            "specialty": "chuyên khoa",
+            "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Tin tức",
             "manage-handbook": "Quản lý tin tức",
