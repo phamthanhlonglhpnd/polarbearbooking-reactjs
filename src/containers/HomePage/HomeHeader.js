@@ -11,20 +11,68 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from '../../store/actions';
 import {LANGUAGES} from '../../utils';
 import {Link} from 'react-router-dom';
+import { convert, convertObject} from '../../components/Formating/GeneralClass';
+import Select from 'react-select';
+const customStyles = {
+    option: (provided, state) => ({
+        ...provided,
+        // borderBottom: '1px dotted pink',
+        // color: state.isSelected ? 'red' : 'blue',
+      }),
+      control: () => ({
+        width: 460,
+        margin: 0
+      }),
+      singleValue: (provided, state) => {
+        const opacity = state.isDisabled ? 0.5 : 1;
+        const transition = 'opacity 300ms';
+    
+        return { ...provided, opacity, transition };
+      }
+  }
 
 class HomeHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: false
+            isActive: false,
+            listSpecialty: [],
+            selectedSpecialty: ''
         }
     }
+
+    async componentDidMount() {
+        await this.props.getGeneralSpecialtySuccess();
+    }
+
+    componentDidUpdate(preProps) {
+        if(preProps.generalSpecialties!==this.props.generalSpecialties) {
+            let selectedSpecialty = convertObject(this.props.generalSpecialties, 'id', 'name', 'SPECIALTY', this.props.language);
+            let listSpecialty = convert(this.props.generalSpecialties, 'SPECIALTY', this.props.language)
+            this.setState({
+                selectedSpecialty: selectedSpecialty,
+                listSpecialty: listSpecialty
+            })
+        }
+    }
+
     handleChangeLanguage = (language) => {
         this.props.appChangeLanguage(language);
     }
 
+    handleChangeSelect = (selectedOption, name) => {
+        let stateName = name.name;
+        let stateCopy = {...this.state};
+        stateCopy[stateName] = selectedOption;
+        this.setState({
+            ...stateCopy
+        }) 
+    }
+
     render() {
         let {language} = this.props;
+        let {listSpecialty, selectedSpecialty} = this.state;
+        
         return (
             <>
                 <div className="home-header">
@@ -54,14 +102,14 @@ class HomeHeader extends Component {
                                     <FormattedMessage id="homeheader.select-facility"/>
                                 </div>
                             </div>
-                            <div className="home-header-option">
+                            <Link to='/search-doctor/' className="home-header-option">
                                 <span className="home-header-name">
                                     <FormattedMessage id="homeheader.doctor"/>
                                 </span>
                                 <div className="home-header-detail">
                                     <FormattedMessage id="homeheader.select-doctor"/>
                                 </div>
-                            </div>
+                            </Link>
                             <div className="home-header-option">
                                 <span className="home-header-name">
                                     <FormattedMessage id="homeheader.health-package"/>
@@ -104,64 +152,15 @@ class HomeHeader extends Component {
                         <div className="banner-search">
                             <div className="banner-search-write">
                                 <i className="fas fa-search banner-search-icon"></i>
-                                <input
-                                    type="text"
+                                <Select
+                                    placeholder="Search"
                                     className="banner-search-input"
-                                    placeholder="Tìm kiếm chuyên khoa"
+                                    value={selectedSpecialty}
+                                    name="selectedSpecialty"
+                                    onChange={this.handleChangeSelect}
+                                    options={listSpecialty}
+                                    styles={customStyles}
                                 />
-                            </div>
-                            <div className="banner-search-aggregate">
-                                <h3 className="banner-search-title">Tổng hợp tìm kiếm</h3>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Cơ xương khớp</div>
-                                <div className="banner-search-result">Thần kinh</div>
-                                <div className="banner-search-result">Tai mũi họng</div>
-                                <div className="banner-search-result">Răng hàm mặt</div>
-                                <div className="banner-search-result">Thần kinh</div>
                             </div>
                         </div>
                         <div className="banner-service">
@@ -240,13 +239,15 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
+        language: state.app.language,
+        generalSpecialties: state.admin.generalSpecialties
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        appChangeLanguage: (language) => dispatch(actions.appChangeLanguage(language))
+        appChangeLanguage: (language) => dispatch(actions.appChangeLanguage(language)),
+        getGeneralSpecialtySuccess: () => dispatch(actions.getGeneralSpecialtySuccess())
     };
 };
 

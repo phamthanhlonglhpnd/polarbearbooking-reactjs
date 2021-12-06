@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { createNewUser, deleteUser, getAllcode, getAllUsers, editUser, getTopDoctorHome, getAllDoctors, saveInforDoctor, getDetailDoctor, getGeneralClinic, getIntroDoctor, getDoctorForBooking, postPatientBooking } from '../../services/userService';
+import { createNewUser, deleteUser, getAllcode, getAllUsers, editUser, getTopDoctorHome, getAllDoctors, saveInforDoctor, getDetailDoctor, getGeneralClinic, getIntroDoctor, getDoctorForBooking, postPatientBooking, createInforSpecialty, getAllSpecialty, getGeneralSpecialty, deleteSpecialty, updateSpecialty, getPatients, createInforClinic, getAllClinic } from '../../services/userService';
 import { toast } from 'react-toastify';
 
 export const adminLoginSuccess = (adminInfo) => ({
@@ -222,7 +222,6 @@ export const updateUserSuccess = (data) => {
                 } else {
                     dispatch({
                         type: actionTypes.UPDATE_USER_SUCCESS,
-                        data: data
                     });
                     dispatch(getAllUsersSuccess());
                     toast.success('Update success!')
@@ -267,6 +266,8 @@ export const getAllDoctorsSuccess = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getAllDoctors();
+            let specialty =  await getGeneralSpecialty();
+
             if(res.errCode!==0) {
                 dispatch(getAllDoctorsFail());
                 toast.warn('Get all doctors fail!');
@@ -526,4 +527,207 @@ export const postPatientBookingSuccess = (data) => {
 
 export const postPatientBookingFail = () => ({
     type: actionTypes.POST_PATIENT_BOOKING_FAIL
+});
+
+export const  getAllSpecialtySuccess = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllSpecialty();
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_SPECIALTY_SUCCESS,
+                    data: res.specialty
+                });
+                
+            } else {
+                dispatch(getAllSpecialtyFail());
+                   
+            }
+        } catch(e) {
+            dispatch(getAllSpecialtyFail());
+            
+        }
+    }
+};
+
+export const getAllSpecialtyFail = () => ({
+    type: actionTypes.GET_ALL_SPECIALTY_FAIL
+});
+
+export const  createInforSpecialtySuccess = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createInforSpecialty(data);
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.CREATE_INFOR_SPECIALTY_SUCCESS,
+                });
+                dispatch(getAllSpecialtySuccess());
+                toast.success('Success!');
+            } else {
+                dispatch(createInforSpecialtyFail());
+                toast.warn('Fail!');    
+            }
+        } catch(e) {
+            dispatch(createInforSpecialtyFail());
+            toast.warn('Fail!');
+        }
+    }
+};
+
+export const createInforSpecialtyFail = () => ({
+    type: actionTypes.CREATE_INFOR_SPECIALTY_FAIL
+});
+
+
+export const getGeneralSpecialtySuccess = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getGeneralSpecialty();
+            if(res.errCode!==0) {
+                dispatch(getGeneralSpecialtyFail());
+            } else {
+                dispatch({
+                    type: actionTypes.GET_GENERAL_SPECIALTY_SUCCESS,
+                    data: res.specialty
+                });
+            }
+        } catch(e) {
+            dispatch(getGeneralSpecialtyFail());
+        }
+    }
+};
+
+export const getGeneralSpecialtyFail = () => ({
+    type: actionTypes.GET_GENERAL_SPECIALTY_FAIL
+});
+
+export const deleteSpecialtySuccess = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteSpecialty(id);
+            if(res) {
+                if(res.errCode!==0) {
+                    dispatch(deleteSpecialtyFail());
+                    toast.warn('Delete fail!');
+                } else {
+                    dispatch({
+                        type: actionTypes.DELETE_SPECIALTY_SUCCESS,
+                    });
+                    dispatch(getAllSpecialtySuccess());
+                    toast.success('Delete success!')
+                }
+            }
+        } catch(e) {
+            dispatch(deleteSpecialtyFail());
+            toast.warn('Delete fail!');
+        }
+    }
+};
+
+export const deleteSpecialtyFail = () => ({
+    type: actionTypes.DELETE_SPECIALTY_FAIL
+});
+
+export const updateSpecialtySuccess = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await updateSpecialty(data);
+            if(res) {
+                if(res.errCode!==0) {
+                    dispatch(updateSpecialtyFail());
+                    toast.warn('Update fail!');
+                } else {
+                    dispatch({
+                        type: actionTypes.UPDATE_SPECIALTY_SUCCESS,
+                    });
+                    dispatch(getAllSpecialtySuccess());
+                    toast.success('Update success!')
+                }
+            }
+        } catch(e) {
+            dispatch(updateSpecialtyFail());
+            toast.warn('Update fail!');
+        }
+    }
+};
+
+export const updateSpecialtyFail = () => ({
+    type: actionTypes.UPDATE_SPECIALTY_FAIL
+});
+
+
+export const getPatientsSuccess = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getPatients(doctorId, date);
+            if(res) {
+                if(res.errCode!==0) {
+                    dispatch(getPatientsFail());
+                } else {
+                    dispatch({
+                        type: actionTypes.GET_PATIENTS_SUCCESS,
+                        data: res.patients
+                    });
+                    dispatch(getAllSpecialtySuccess());
+                    }
+            }
+        } catch(e) {
+            dispatch(getPatientsFail())
+        }
+    }
+};
+
+export const getPatientsFail = () => ({
+    type: actionTypes.GET_PATIENTS_FAIL
+});
+
+export const  createInforClinicSuccess = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createInforClinic(data);
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.CREATE_INFOR_CLINIC_SUCCESS,
+                });
+                dispatch(getAllClinicSuccess());
+                toast.success('Success!');
+            } else {
+                dispatch(createInforClinicFail());
+                toast.warn('Fail!');    
+            }
+        } catch(e) {
+            dispatch(createInforClinicFail());
+            toast.warn('Fail!');
+        }
+    }
+};
+
+export const createInforClinicFail = () => ({
+    type: actionTypes.CREATE_INFOR_CLINIC_FAIL
+});
+
+export const  getAllClinicSuccess = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllClinic();
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_CLINIC_SUCCESS,
+                    data: res.clinic
+                });
+                
+            } else {
+                dispatch(getAllClinicFail());
+                   
+            }
+        } catch(e) {
+            dispatch(getAllClinicFail());
+            
+        }
+    }
+};
+
+export const getAllClinicFail = () => ({
+    type: actionTypes.GET_ALL_CLINIC_FAIL
 });

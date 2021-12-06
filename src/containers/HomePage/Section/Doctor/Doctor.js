@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { convertToImage } from '../../../../components/Formating/GeneralClass';
 
 
 class Doctor extends Component {
@@ -30,10 +31,10 @@ class Doctor extends Component {
         }
     }
 
-    convertToImage = (item) => {
-        let imageBase64 = new Buffer(item, 'base64').toString('binary');
-        return imageBase64;
-    }
+    // convertToImage = (item) => {
+    //     let imageBase64 = new Buffer(item, 'base64').toString('binary');
+    //     return imageBase64;
+    // }
 
     render() {
         let settings = this.props.settings;
@@ -53,7 +54,7 @@ class Doctor extends Component {
                                     >
                                         <div 
                                             className="doctor-img"
-                                            style={{backgroundImage: `url(${this.convertToImage(item.image)})`}}
+                                            style={{backgroundImage: `url(${convertToImage(item.image)})`}}
                                         ></div>
                                         <div className="section-position">{language===LANGUAGES.VI ? item.positionData.valueVi : item.positionData.valueEn}</div>
                                         <div className="section-name">

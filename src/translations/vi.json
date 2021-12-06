@@ -73,6 +73,8 @@
             "manage-handbook": "Quản lý tin tức",
             "doctor-infor": "Tạo/Sửa thông tin cho bác sĩ",
             "choose-doctor": "Chọn bác sĩ",
+            "choose-clinic": "Chọn phòng khám",
+            "choose-specialty": "Chọn chuyên khoa",
             "information": "Thông tin chung",
             "price": "Bảng giá", 
             "address-clinic": "Địa chỉ phòng khám",
@@ -83,6 +85,7 @@
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh",
+            "manage-patient": "Quản lý bệnh nhân khám bệnh",
             "choose-doctor": "Chọn bác sĩ",
             "choose-date": "Chọn ngày khám",
             "save": "Lưu",
@@ -97,7 +100,8 @@
             "note": "Ghi chú"
         },
         "patient": {
-            "name": "Họ và tên", 
+            "firstName": "Họ", 
+            "lastName": "Tên",
             "phone": "Số điện thoại",
             "option": "Đặt cho ai",
             "gender": "Giới tính",
@@ -110,6 +114,20 @@
             "title": "Đặt lịch với: ", 
             "price": "Giá khám: ", 
             "time": "Thời gian: "
+        },
+        "specialty": {
+            "title": "Tạo/Sửa/Xóa thông tin chuyên khoa",
+            "choose-specialty": "Chọn chuyên khoa",
+            "choose-image": "Chọn ảnh",
+            "description": "Mô tả chung"
+        },
+        "clinic": {
+            "title": "Tạo/Sửa/Xóa thông tin phòng khám",
+            "choose-clinic": "Chọn phòng khám",
+            "choose-image": "Chọn ảnh",
+            "description": "Mô tả chung",
+            "professionalStrengths": "Thế mạnh chuyên môn",
+            "equipments": "Trang thiết bị"
         }
     },
     "system": {
@@ -148,56 +166,6 @@
                 "password": "Quý khách vui lòng nhập mật khẩu"
             },
             "sure-delete-user": "Bạn có chắc chắn muốn xóa người dùng này?"
-        },
-        "product-manage": {
-            "fail-to-load-foprtype": "Không thể tải về danh sách gói",
-            "prid": "Mã gói",
-            "prname": "Tên gói",
-            "prtype": "Loại gói",
-            "status": "Trạng thái",
-            "description": "Diễn giải",
-            "effective-date": "Ngày hiệu lực",
-            "expiration-date": "Ngày hết hiệu lực",
-            "add-product": "Thêm gói",
-            "add-product-success": "Thêm gói thành công",
-            "add-product-fail": "Thêm gói thất bại",
-            "edit-product": "Sửa thông tin gói",
-            "package-decentralize": "Phân quyền chức năng",
-            "edit-product-success": "Thay đổi thông tin gói thành công",
-            "edit-product-fail": "Thay đổi thông tin gói thất bại",
-            "delete-product-success": "Xóa gói thành công",
-            "delete-product-fail": "Xóa gói thất bại",
-            "invalid-input": {
-                "prid": "Quý khách vui lòng nhập mã gói",
-                "prname": "Quý khách vui lòng nhập tên gói"
-            },
-            "fail-to-load-decentralize-info": "Không thể tải về thông tin phân quyền chức năng",
-            "save-decentralize-success": "Lưu phân quyền chức năng thành công",
-            "save-decentralize-fail": "Lưu phân quyền chức năng thất bại",
-            "sure-delete-package": "Bạn có chắc chắn muốn xóa gói này?"
-        },
-        "register-package-group-or-acc": {
-            "assign-service-package-to-customer": "Gán gói dịch vụ cho khách hàng",
-            "package-name": "Tên gói",
-            "assign-type": "Loại gán",
-            "cust-acc-group": "Nhóm KH/Tài khoản",
-            "effective-date": "Ngày hiệu lực",
-            "expiration-date": "Ngày hết hiệu lực",
-            "assign": "Gán",
-            "manage-assign-groups": "Quản lý gán nhóm",
-            "group-cust-acc-name": "Tên nhóm/tài khoản KH",
-            "del-assign": "Xóa gán",
-            "fail-to-load-manage-assign-groups-list": "Không thể tải về thông tin quản lý gán nhóm",
-            "invalid-selected": {
-                "currentfoProduct": "Gói đang chọn không hợp lệ",
-                "currentAssignType": "Loại gán không hợp lệ",
-                "currentFoUser": "Nhóm KH/Tài khoản không hợp lệ"
-            },
-            "assign-service-package-to-customer-success": "Gán gói dịch vụ cho khách hàng thành công",
-            "assign-service-package-to-customer-fail": "Gán gói dịch vụ cho khách hàng thất bại",
-            "remove-assign-success": "Bỏ gán gói dịch vụ cho khách hàng thành công",
-            "remove-assign-fail": "Bỏ gán gói dịch vụ cho khách hàng thất bại",
-            "sure-delete-assign": "Bạn có chắc chắn muốn bỏ gán gói dịch vụ cho khách hàng?"
         }
     },
     "homepage": {

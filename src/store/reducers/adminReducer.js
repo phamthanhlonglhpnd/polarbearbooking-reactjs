@@ -28,7 +28,10 @@ const initialState = {
     detailDoctor: {},
     generalClinic: {},
     introDoctor: {},
-    doctorForBooking: {}
+    doctorForBooking: {},
+    specialties: [],
+    generalSpecialties: [],
+    patients: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -120,23 +123,6 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        // case actionTypes.FETCH_TIME_START:
-        //     state.isLoadingTime = true;
-        //     return {
-        //         ...state
-        //     }
-        // case actionTypes.FETCH_TIME_SUCCESS:
-        //     state.isLoadingTime = false;
-        //     state.timeSchedule = action.data;
-        //     return {
-        //         ...state
-        //     }
-        // case actionTypes.FETCH_TIME_FAIL:
-        //     state.isLoadingTime = false;
-        //     state.timeSchedule = [];
-        //     return {
-        //         ...state
-        //     }
         case actionTypes.ADD_NEW_USER_SUCCESS:
             state.datas = action.data;
             state.isAdd = true;
@@ -258,6 +244,36 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_DOCTOR_FOR_BOOKING_FAIL:
             state.doctorForBooking = {};
+            return {
+                ...state,
+            }
+        case actionTypes.GET_ALL_SPECIALTY_SUCCESS:
+            state.specialties = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.GET_ALL_SPECIALTY_FAIL:
+            state.specialties = [];
+            return {
+                ...state,
+            }
+        case actionTypes.GET_GENERAL_SPECIALTY_SUCCESS:
+            state.generalSpecialties = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.GET_GENERAL_SPECIALTY_FAIL:
+            state.generalSpecialties = [];
+            return {
+                ...state,
+            }
+        case actionTypes.GET_PATIENTS_SUCCESS:
+            state.patients = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.GET_PATIENTS_FAIL:
+            state.patients = [];
             return {
                 ...state,
             }

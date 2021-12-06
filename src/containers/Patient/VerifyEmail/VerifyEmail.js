@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import {LANGUAGES} from '../../../utils';
-import * as actions from '../../../store/actions';
 import { postVerifyBooking } from '../../../services/userService';
 import HomeHeader from '../../HomePage/HomeHeader';
 
@@ -17,7 +15,7 @@ class VerifyEmail extends Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.setContent(this.props.language);
     }
 
@@ -49,7 +47,7 @@ class VerifyEmail extends Component {
 
     componentDidUpdate(preProps) {
         if(preProps.language!==this.props.language) {
-            this.setContent(this.setContent(this.props.language))
+            this.setContent(this.props.language);
         }
     }
     

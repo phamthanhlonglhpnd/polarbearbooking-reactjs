@@ -30,14 +30,54 @@ export const checkObject = (object) => {
     
 }
 
-export const convertSelectedOption = (itemArr) => {
+export const convertSelectedOption = (itemArr, language) => {
     let newArr = [];
-    let {language} = this.props;
+    
     if(itemArr && itemArr.length>0) {
         newArr = itemArr.map(item => ({
             value: item.keyMap,
             label: language===LANGUAGES.VI ? item.valueVi : item.valueEn
         }));
+    }
+    return newArr
+}
+
+export const convertToImage = (item) => {
+    let imageBase64 = '';
+    if(item) {
+        imageBase64 = new Buffer(item, 'base64').toString('binary');
+    }
+    return imageBase64;
+}
+
+export const convertObject = (object, key1, key2, type, language) => {
+    let newObject = {};
+    if(type==='PROVINCE' || type==='PRICE' || type==='PAYMENT') {
+        newObject.value = object[key1];
+        newObject.label = language===LANGUAGES.VI ? object[key2].valueVi : object[key2].valueEn;
+    }
+    if(type==='SPECIALTY') {
+        newObject.value = object[key1];
+        newObject.label = object[key2];
+    }
+    return newObject;
+}
+
+export const convert = (itemArr, type, language) => {
+    let newArr = [];
+    if(itemArr && itemArr.length>0) {
+        if(type==='PROVINCE' || type==='PRICE' || type==='PAYMENT') {
+            newArr = itemArr.map(item => ({
+                value: item.keyMap,
+                label: language===LANGUAGES.VI ? item.valueVi : item.valueEn
+            }));
+        };
+        if(type==='SPECIALTY') {
+            newArr = itemArr.map(item => ({
+                value: item.id,
+                label: item.name
+            }));
+        } 
     }
     return newArr
 }

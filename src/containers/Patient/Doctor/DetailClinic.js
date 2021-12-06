@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './DetailClinic.scss';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { getDetailDoctor } from '../../../services/userService';
+import { getGeneralClinic } from '../../../services/userService';
 import {LANGUAGES} from '../../../utils';
 import * as actions from '../../../store/actions';
 
@@ -12,44 +12,22 @@ class DetailClinic extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            addressClinic: '', 
-            nameClinic: '',
-            price: '',
-            payment: '',
-            note: '',
+            // addressClinic: '', 
+            // nameClinic: '',
+            // price: '',
+            // payment: '',
+            // note: '',
+            clinic: {},
             isDetail: false
         }
     }
 
     async componentDidMount() {
-        await this.props.getGeneralClinicSuccess(this.props.param);
-    }
-
-    componentDidUpdate(prevProps) {
-        let {language} = this.props;
-        if(prevProps.generalClinic!==this.props.generalClinic || prevProps.language!==this.props.language) {
-            let data = this.props.generalClinic;
-            let priceVND = data?.priceData?.valueVi ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(data.priceData.valueVi) : '';
-            let priceUSA = data?.priceData?.valueEn ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'USD' }).format(data.priceData.valueEn) : '';
-            let paymentVi = data?.paymentData?.valueVi ? data.paymentData.valueVi : '';
-            let paymentEn = data?.paymentData?.valueEn ? data.paymentData.valueEn : '';
-            if(data) {
-                this.setState({
-                    addressClinic: data.addressClinic,
-                    nameClinic: data.nameClinic,
-                    price: language===LANGUAGES.VI ? priceVND : priceUSA,
-                    payment: language===LANGUAGES.VI ? paymentVi : paymentEn,
-                    note: data.note
-                })
-            } else {
-                this.setState({
-                    addressClinic: '', 
-                    nameClinic: '',
-                    price: '',
-                    payment: '',
-                    note: '',
-                })
-            }
+        if(this.props.param) {
+            let res =  await getGeneralClinic(this.props.param);
+            this.setState({
+                clinic: res.clinic
+            })
         }
     }
 
@@ -60,7 +38,14 @@ class DetailClinic extends Component {
     }
     
     render() {
-        let {addressClinic, nameClinic, price, payment, note, isDetail} = this.state;
+        let {clinic, isDetail} = this.state;
+        let {language} = this.props;
+        let priceVND = clinic?.priceData?.valueVi ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(clinic.priceData.valueVi) : '';
+        let priceUSA = clinic?.priceData?.valueEn ? new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'USD' }).format(clinic.priceData.valueEn) : '';
+        let paymentVi = clinic?.paymentData?.valueVi ? clinic.paymentData.valueVi : '';
+        let paymentEn = clinic?.paymentData?.valueEn ? clinic.paymentData.valueEn : '';
+        let price  = language===LANGUAGES.VI ? priceVND : priceUSA;
+        let payment = language===LANGUAGES.VI ? paymentVi : paymentEn
         return (
             
             <div className="detailClinic">
@@ -69,10 +54,10 @@ class DetailClinic extends Component {
                         <FormattedMessage id="menu.doctor.title"/>
                     </div>
                     <div className="detailClinic-name">
-                        {nameClinic}
+                        {clinic.nameClinic}
                     </div>
                     < div className="detailClinic-address">
-                        {addressClinic}
+                        {clinic.addressClinic}
                     </div>
                 </div>
                 <div className="detailClinic-bottom">
@@ -100,7 +85,7 @@ class DetailClinic extends Component {
                     </div>
                     <div className="detailClinic-detail-note">
                         <span className="detailClinic-detail-title"><FormattedMessage id="menu.doctor.note"/>: </span>
-                        {note}
+                        {clinic.note}
                     </div>
                 </div>
                 ) : ''}
@@ -115,13 +100,12 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
-        generalClinic: state.admin.generalClinic
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getGeneralClinicSuccess: (doctorId) => dispatch(actions.getGeneralClinicSuccess(doctorId))
+        
     };
 };
 

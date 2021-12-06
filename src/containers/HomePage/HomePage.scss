@@ -24,7 +24,12 @@
     &-title {
         font-size: 24px;
         font-weight: bold;
-        padding: 15px 0px 5px 0px;
+        padding: 15px 0px 15px 0px;
+        background-image: linear-gradient(135deg, #4d1550 0%, #2fb5d9 30%, #e0571e 60%, #2BFF88 90%);
+        -webkit-background-clip: text;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
     &-item {
         cursor: pointer;   

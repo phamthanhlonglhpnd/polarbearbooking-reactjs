@@ -25,9 +25,15 @@ class ManageDoctor extends Component {
 
             //save to Doctor_Infor
             doctorArr: [],
+            clinicArr: [],
+            clinicId: '',
+            specialtyId:'',
+            specialtyArr: [],
             priceArr: [],
             paymentArr: [],
             provinceArr: [],
+            selectedClinic: '',
+            selectedSpecialty: [],
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
@@ -43,6 +49,7 @@ class ManageDoctor extends Component {
         await this.props.fetchPriceSuccess();
         await this.props.fetchPaymentSuccess();
         await this.props.fetchProvinceSuccess();
+        await this.props.getGeneralSpecialtySuccess();
     }
 
     convertOption = (doctorArr) => {
@@ -57,23 +64,37 @@ class ManageDoctor extends Component {
         return newDoctorArr;
     }
 
-    convert = (itemArr) => {
+    convert = (itemArr, type) => {
         let newArr = [];
         let {language} = this.props;
         if(itemArr && itemArr.length>0) {
-            newArr = itemArr.map(item => ({
-                value: item.keyMap,
-                label: language===LANGUAGES.VI ? item.valueVi : item.valueEn
-            }));
+            if(type==='PROVINCE' || type==='PRICE' || type==='PAYMENT') {
+                newArr = itemArr.map(item => ({
+                    value: item.keyMap,
+                    label: language===LANGUAGES.VI ? item.valueVi : item.valueEn
+                }));
+            };
+            if(type==='SPECIALTY') {
+                newArr = itemArr.map(item => ({
+                    value: item.id,
+                    label: item.name
+                }));
+            } 
         }
         return newArr
     }
 
-    convertObject = (object, key1, key2) => {
+    convertObject = (object, key1, key2, type) => {
         let newObject = {};
         let {language} = this.props;
-        newObject.value = object[key1];
-        newObject.label = language===LANGUAGES.VI ? object[key2].valueVi : object[key2].valueEn;
+        if(type==='PROVINCE' || type==='PRICE' || type==='PAYMENT') {
+            newObject.value = object[key1];
+            newObject.label = language===LANGUAGES.VI ? object[key2].valueVi : object[key2].valueEn;
+        }
+        if(type==='SPECIALTY') {
+            newObject.value = object[key1];
+            newObject.label = object[key2];
+        }
         return newObject;
     }
 
@@ -82,17 +103,21 @@ class ManageDoctor extends Component {
             || prevProps.language !== this.props.language 
             || prevProps.provinces !== this.props.provinces 
             || prevProps.prices !== this.props.prices 
-            || prevProps.payments !== this.props.payments) 
+            || prevProps.payments !== this.props.payments
+            || prevProps.generalSpecialties !== this.props.generalSpecialties
+        ) 
         {
             let doctorSelect = this.convertOption(this.props.doctors);
-            let priceSelect = this.convert(this.props.prices);
-            let provinceSelect = this.convert(this.props.provinces);
-            let paymentSelect = this.convert(this.props.payments);
+            let priceSelect = this.convert(this.props.prices, 'PRICE');
+            let provinceSelect = this.convert(this.props.provinces, 'PROVINCE');
+            let paymentSelect = this.convert(this.props.payments, 'PAYMENT');
+            let specialtySelect = this.convert(this.props.generalSpecialties, 'SPECIALTY');
             this.setState({
                 doctorArr: doctorSelect,
                 priceArr: priceSelect,
                 provinceArr: provinceSelect,
-                paymentArr: paymentSelect
+                paymentArr: paymentSelect,
+                specialtyArr: specialtySelect
             })
         }
     }
@@ -139,14 +164,17 @@ class ManageDoctor extends Component {
         
         if(res?.inforDoctor && res.errCode===0) {
             let inforDoctor = res.inforDoctor;
-            let payment = this.convertObject(inforDoctor, 'paymentId', 'paymentData');
-            let price = this.convertObject(inforDoctor, 'priceId', 'priceData');
-            let province=  this.convertObject(inforDoctor, 'provinceId', 'provinceData');
+            let payment = this.convertObject(inforDoctor, 'paymentId', 'paymentData', 'PAYMENT');
+            let price = this.convertObject(inforDoctor, 'priceId', 'priceData', 'PRICE');
+            let province =  this.convertObject(inforDoctor, 'provinceId', 'provinceData', 'PROVINCE');
+            let specialty = this.convertObject(inforDoctor.specialty, 'id', 'name', 'SPECIALTY');
             if(inforDoctor.priceId!==null
                 && inforDoctor.provinceId!==null
                 && inforDoctor.paymentId!==null
                 && inforDoctor.addressClinic!==null
-                && inforDoctor.nameClinic!==null) {
+                && inforDoctor.nameClinic!==null
+                && inforDoctor.specialty!==null
+            ) {
                     this.setState({
                         addressClinic: inforDoctor.addressClinic,
                         nameClinic: inforDoctor.nameClinic,
@@ -154,6 +182,7 @@ class ManageDoctor extends Component {
                         selectedPayment: payment,
                         selectedPrice: price,
                         selectedProvince: province,
+                        selectedSpecialty: specialty
                     })
                 } else {
                     this.setState({
@@ -163,6 +192,7 @@ class ManageDoctor extends Component {
                         selectedPayment: '',
                         selectedPrice: '',
                         selectedProvince: '',
+                        selectedSpecialty: ''
                     })
                 }
         } else {
@@ -173,6 +203,7 @@ class ManageDoctor extends Component {
                 selectedPayment: '',
                 selectedPrice: '',
                 selectedProvince: '',
+                selectedSpecialty: ''
             })
         }
     };
@@ -206,6 +237,7 @@ class ManageDoctor extends Component {
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             doctorId: this.state.selectedOption.value,
+            specialtyId: this.state.selectedSpecialty.value,
             description: this.state.description,
             action: hasOldData === true ? ACTIONS.EDIT : ACTIONS.CREATE,
             provinceId: this.state.selectedProvince.value,
@@ -224,6 +256,7 @@ class ManageDoctor extends Component {
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
+            selectedSpecialty: '',
             addressClinic: '',
             nameClinic: '',
             note: ''
@@ -234,12 +267,13 @@ class ManageDoctor extends Component {
     render() {
         return (
             <div className="doctor">
-                <div className="doctor-title text-center"><FormattedMessage id="menu.admin.doctor-infor"/></div>
+                <div className="title"><FormattedMessage id="menu.admin.doctor-infor"/></div>
                 <div className="doctor-top">
                     <div className="doctor-top-left">
                         <label><FormattedMessage id="menu.admin.choose-doctor"/></label>
                         <Select
                             value={this.state.selectedOption}
+                            name="selectedOption"
                             onChange={this.handleChange}
                             options={this.state.doctorArr}
                         />
@@ -257,6 +291,26 @@ class ManageDoctor extends Component {
                     </div>    
                 </div>
                 <div className="doctor-bottom">
+                    <div className="row form-group">
+                        <div className="col-6">
+                            <label><FormattedMessage id="menu.admin.choose-clinic"/></label>
+                            <Select
+                                value={this.state.selectedClinic}
+                                name="selectedClinic"
+                                onChange={this.handleChangeSelect}
+                                options={this.state.clinicArr}
+                            />
+                        </div>
+                        <div className="col-6">
+                            <label><FormattedMessage id="menu.admin.choose-specialty"/></label>
+                            <Select
+                                value={this.state.selectedSpecialty}
+                                name="selectedSpecialty"
+                                onChange={this.handleChangeSelect}
+                                options={this.state.specialtyArr}
+                            />
+                        </div>
+                    </div>
                     <div className="row form-group">
                         <div className="col-4">
                             <label><FormattedMessage id="menu.admin.name-clinic"/></label>
@@ -339,7 +393,8 @@ const mapStateToProps = state => {
         doctors: state.admin.doctors,
         prices: state.admin.prices,
         payments: state.admin.payments,
-        provinces: state.admin.provinces
+        provinces: state.admin.provinces,
+        generalSpecialties: state.admin.generalSpecialties
     };
 };
 
@@ -350,7 +405,8 @@ const mapDispatchToProps = dispatch => {
         getDetailDoctorSuccess: (id) => dispatch(actions.getDetailDoctorSuccess(id)),
         fetchPriceSuccess: () => dispatch(actions.fetchPriceSuccess()),
         fetchProvinceSuccess: () => dispatch(actions.fetchProvinceSuccess()),
-        fetchPaymentSuccess: () => dispatch(actions.fetchPaymentSuccess())
+        fetchPaymentSuccess: () => dispatch(actions.fetchPaymentSuccess()),
+        getGeneralSpecialtySuccess: () => dispatch(actions.getGeneralSpecialtySuccess())
     };
 };
 

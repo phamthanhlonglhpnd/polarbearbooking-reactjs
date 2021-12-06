@@ -1,7 +1,8 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { formatImage } from '../../../components/Formating/GeneralClass';
-import * as actions from '../../../store/actions';
+import { getIntroDoctor } from '../../../services/userService';
+// import * as actions from '../../../store/actions';
 import {LANGUAGES} from '../../../utils';
 import './IntroDoctor.scss';
 
@@ -16,15 +17,9 @@ class IntroDoctor extends Component {
     
     async componentDidMount() {
         if(this.props.id) {
-            await this.props.getIntroDoctorSuccess(this.props.id);
-        }
-    }
-
-    componentDidUpdate(preProps) {
-        let {language} = this.props;
-        if(preProps.language!==language || preProps.introDoctor!==this.props.introDoctor) {
+            let res = await getIntroDoctor(this.props.id);
             this.setState({
-                intro: this.props.introDoctor
+                intro: res.intro
             })
         }
     }
@@ -53,14 +48,13 @@ class IntroDoctor extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        introDoctor: state.admin.introDoctor,
         language: state.app.language
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getIntroDoctorSuccess: (id) => dispatch(actions.getIntroDoctorSuccess(id))
+    
     };
 };
 

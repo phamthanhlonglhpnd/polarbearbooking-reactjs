@@ -5,7 +5,10 @@ export const path = {
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     DETAIL_DOCTOR: '/detail-doctor-by-id/:id',
+    DETAIL_SPECIALTY: '/detail-specialty-by-id/:id',
+    DETAIL_CLINIC: '/detail-clinic-by-id/:id',
     DOCTOR: '/doctor/',
+    SEARCH_DOCTOR: '/search-doctor/',
     VERIFY_EMAIL: '/verify-booking'
 };
 

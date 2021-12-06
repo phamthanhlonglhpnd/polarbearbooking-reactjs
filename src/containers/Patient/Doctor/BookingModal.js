@@ -15,7 +15,8 @@ class BookingModal extends Component {
         super(props);
         this.state = {
             isShowModal: false,
-            fullname: '',
+            firstName:'',
+            lastName: '',
             phonenumber: '',
             person: '',
             gender: [],
@@ -76,8 +77,12 @@ class BookingModal extends Component {
         let time = this.renderTime();
         let doctorName = this.renderNameDoctor();
         this.props.postPatientBookingSuccess({
-            patientName: this.state.fullname,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             email: this.state.email,
+            address: this.state.address,
+            phonenumber: this.state.phonenumber,
+            gender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
             doctorName: doctorName,
             date: this.state.date,
@@ -86,7 +91,8 @@ class BookingModal extends Component {
             language: this.props.language
         });
         this.setState({
-            fullname: '',
+            firstName: '',
+            lastName: '',
             phonenumber: '',
             person: '',
             gender: [],
@@ -143,7 +149,7 @@ class BookingModal extends Component {
     }
 
     render() {
-        let {fullname, phonenumber, person, gender, selectedGender, email, address, reason} = this.state;
+        let {firstName, lastName, phonenumber, person, gender, selectedGender, email, address, reason} = this.state;
         return (
             <Modal 
                 isOpen={this.props.isOpen} 
@@ -169,19 +175,31 @@ class BookingModal extends Component {
                             <FormattedMessage id="menu.patient.booking"/>
                         </span>
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label>
-                                    <FormattedMessage id="menu.patient.name"/>
+                                    <FormattedMessage id="menu.patient.firstName"/>
                                 </label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
-                                    value={fullname} 
+                                    value={firstName} 
                                     placeholder="Fullname"
-                                    onChange={(e) => this.handleOnChangeInput('fullname', e)}
+                                    onChange={(e) => this.handleOnChangeInput('firstName', e)}
                                 />          
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
+                                <label>
+                                    <FormattedMessage id="menu.patient.lastName"/>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={lastName} 
+                                    placeholder="Fullname"
+                                    onChange={(e) => this.handleOnChangeInput('lastName', e)}
+                                />          
+                            </div>
+                            <div className="col-4">
                                 <label>
                                     <FormattedMessage id="menu.patient.phone"/>
                                 </label>

@@ -80,6 +80,74 @@ const postVerifyBooking = (data) => {
     return axios.post('api/post-verify-booking', data);
 }
 
+const createInforSpecialty = (data) => {
+    return axios.post('api/create-infor-specialty', data);
+}
+
+const getAllSpecialty = () => {
+    return axios.get('api/get-all-specialty');
+}
+
+const getGeneralSpecialty = () => {
+    return axios.get('api/get-general-specialty');
+}
+
+const getDetailSpecialty = (id, location) => {
+    return axios.get(`api/get-detail-specialty?id=${id}&location=${location}`);
+}
+
+const getDoctorsBySpecialty = (specialtyId) => {
+    return axios.get(`api/get-doctors-by-specialty?specialtyId=${specialtyId}`);
+}
+
+const deleteSpecialty = (id) => {
+    return axios.delete('api/delete-specialty', {
+        data: {
+            id: id
+        }
+    })
+}
+
+const updateSpecialty = (data) => {
+    return axios.put('api/update-specialty', data);
+}
+
+const getPatients = (doctorId, date) => {
+    return axios.get(`api/get-patients?doctorId=${doctorId}&date=${date}`)
+}
+
+const sendPrescription = (data) => {
+    return axios.post('api/send-prescription', data)
+}
+
+const createInforClinic = (data) => {
+    return axios.post('api/create-infor-clinic', data);
+}
+
+const getAllClinic = () => {
+    return axios.get('api/get-all-clinic');
+}
+
+const getHomeClinic = () => {
+    return axios.get('api/get-home-clinic');
+}
+
+const deleteClinic = (id) => {
+    return axios.delete('api/delete-clinic', {
+        data: {
+            id: id
+        }
+    })
+}
+
+const updateClinic = (data) => {
+    return axios.put('api/update-clinic', data);
+}
+
+const getDetailClinic = (id) => {
+    return axios.get(`api/get-detail-clinic?id=${id}`);
+}
+
 export {
             handleLoginApi, getAllUsers, 
             createNewUser, editUser, 
@@ -90,6 +158,12 @@ export {
             getScheduleByDate, getGeneralClinic,
             getIntroDoctor, getMarkdownDoctor,
             getDoctorForBooking, postPatientBooking,
-            postVerifyBooking
+            postVerifyBooking, createInforSpecialty,
+            getAllSpecialty, getDetailSpecialty,
+            getGeneralSpecialty, getDoctorsBySpecialty,
+            deleteSpecialty, updateSpecialty,
+            getPatients, sendPrescription, 
+            createInforClinic, getAllClinic, getDetailClinic,
+            getHomeClinic, deleteClinic, updateClinic
         };
 

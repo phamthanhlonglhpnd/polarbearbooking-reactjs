@@ -70,7 +70,6 @@ class DetailSchedule extends Component {
  
     handleBooking = (time) => {
         this.toggleModal();
-        console.log(time);
         this.setState({
             scheduleProp: time
         })
