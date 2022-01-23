@@ -22,30 +22,12 @@
         "dental-examination": "Dental examination"
     },
     "common": {
-        "add": "Add",
-        "edit": "Edit",
-        "delete": "Delete",
-        "decentralize": "Decentralize",
-        "close": "Close",
-        "save": "Save",
-        "refresh": "Refresh",
-        "accept": "Accept",
-        "confirm": "Confirm",
-        "confirm-this-task": "Are you sure to process this task?",
-        "fail-to-load-data": "Fail to load data",
-        "unknown-error": "There was an error",
-        "internal-server-error": "Internal server error",
-        "bad-request": "Bad request",
-        "forbiden-request": "Invalid input data",
-        "fail-to-load-all-code": "Fail to load data from allcode",
-        "sum": "Sum",
-        "date-range-invalid": "Date range invalid"
-    },
-    "login": {
+        "clinic": "Outstanding Clinic",
+        "specialty":"Outstanding Specialty",
+        "doctor":"Outstanding Doctor",
+        "result": "Result",
         "login": "Login",
-        "username": "Username",
-        "password": "Password",
-        "userpass-wrong": "Invalid username or password!"
+        "register": "Register"
     },
     "menu": {
         "system": {
@@ -61,16 +43,17 @@
             }
         },
         "admin": {
+            "admin": "Admin",
             "user": "User",
-            "manage-doctor": "Manage doctor",
+            "manage-doctor": "Manage Doctors",
             "crud": "User manage",
-            "crud-redux": "User Redux manage",
+            "crud-redux": "Manage Users",
             "clinic": "Clinic",
-            "manage-clinic": "Manage Clinic",
+            "manage-clinic": "Manage Clinics",
             "specialty": "Specialty",
-            "manage-specialty": "Manage Specialty",
+            "manage-specialty": "Manage Specialties",
             "handbook": "Handbook",
-            "manage-handbook": "Manage Handbook",
+            "manage-handbook": "Manage Handbooks",
             "doctor-infor": "Create/Update/Delete information for doctor",
             "choose-doctor": "Choose Doctor",
             "choose-clinic": "Choose Clinic",
@@ -97,8 +80,15 @@
             "hide-detail": "Hide Detail",
             "price": "Price",
             "payment": "Payment",
-            "note": "Note"
+            "note": "Note",
+            "warn": "The maximum number of patients allowed in the examination team has reached the maximum!"
         }, 
+        "user": {
+            "manage-user": "User",
+            "medical-history": "Medical History",
+            "medical-examination-schedule": "Medical Examination Schedule",
+            "person-information": "Person Information"
+        },
         "patient": {
             "firstName": "First Name", 
             "lastName": "Last Name",
@@ -121,10 +111,17 @@
             "choose-image": "Choose image",
             "description": "Description"
         },
+        "handbook": {
+            "title": "Create/Update/Delete information for Handbook",
+            "choose-handbook": "Choose Handbook",
+            "choose-image": "Choose image",
+            "description": "Description"
+        },
         "clinic": {
             "title": "Create/Update/Delete information for Clinic",
             "choose-clinic": "Choose Clinic",
             "choose-image": "Choose image",
+            "address": "Address",
             "description": "Description",
             "professionalStrengths": "Professional Strengths",
             "equipments": "Equipments"
@@ -173,6 +170,18 @@
         "see-more": "See more", 
         "popular-specialization": "Popular Specialization",
         "outstanding-medical-facility": "Outstanding Medical Facility",
-        "about": "What does the media say about Polarbear Care?"
+        "about": "What does the media say about Polarbear Care?",
+        "app": "Download application Polarbear Care",
+        "faster": "Booking an appointment faster",
+        "receive": "Receiving notifications from the system",
+        "instructions": "Getting detailed examination instructions",
+        "convenien": "Booking an appointment more convenient",
+        "handbook": "Handbooks and News",
+        "product": "The product of ",
+        "censor": "Censor: ",
+        "publish": "Publish: ",
+        "last-update": "Last update: ",
+        "specialty": "Specialty: ",
+        "goto-post": "Go to post"
     }
 }

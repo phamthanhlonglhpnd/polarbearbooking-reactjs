@@ -5,11 +5,10 @@ import { FormattedMessage } from 'react-intl';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import * as actions from '../../../store/actions';
-import { LANGUAGES, ACTIONS } from '../../../utils';
-import { CommonUtils } from '../../../utils';
-import { convertToImage } from '../../../components/Formating/GeneralClass';
-import { createInforClinic, deleteClinic, getAllClinic, updateClinic } from '../../../services/userService';
+import * as actions from '../../../../store/actions';
+import { CommonUtils } from '../../../../utils';
+import { convertToImage } from '../../../../components/Formating/GeneralClass';
+import { createInforClinic, deleteClinic, getAllClinic, updateClinic } from '../../../../services/userService';
 import { toast } from 'react-toastify';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -21,6 +20,7 @@ class ManageClinic extends Component {
             id: '',
             name: '',
             image: '',
+            address: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
             professionalStrengthsHTML: '',
@@ -41,7 +41,7 @@ class ManageClinic extends Component {
         let res = await getAllClinic();
         if(res && res.errCode===0) {
             this.setState({
-                clinics: res.clinic
+                clinics: res.clinics
             })
         }
     }
@@ -60,6 +60,7 @@ class ManageClinic extends Component {
             id: clinic.id,
             name: clinic.name,
             image: '',
+            address: clinic.address,
             selectedImage: imageBase64,
             descriptionHTML: clinic.descriptionHTML,
             descriptionMarkdown: clinic.descriptionMarkdown,
@@ -77,9 +78,11 @@ class ManageClinic extends Component {
         await this.getClinics();
     }
 
-    handleChangeInput = (e) => {
+    handleChangeInput = (e, key) => {
+        let newState = {...this.state};
+        newState[key] = e.target.value;
         this.setState({
-            name: e.target.value
+            ...newState
         })
     }
 
@@ -122,6 +125,7 @@ class ManageClinic extends Component {
             let res = await createInforClinic({
                 name: this.state.name,
                 image: this.state.image,
+                address: this.state.address,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
                 professionalStrengthsHTML: this.state.professionalStrengthsHTML,
@@ -140,6 +144,7 @@ class ManageClinic extends Component {
                 id: this.state.id,
                 name: this.state.name,
                 image: this.state.image,
+                address: this.state.address,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
                 professionalStrengthsHTML: this.state.professionalStrengthsHTML,
@@ -158,6 +163,7 @@ class ManageClinic extends Component {
         this.setState({
             name: '',
             image: '',
+            address: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
             professionalStrengthsHTML: '',
@@ -169,24 +175,35 @@ class ManageClinic extends Component {
     }
 
     render() {
-        let {name, selectedImage, descriptionMarkdown, professionalStrengthsMarkdown, equipmentsMarkdown, clinics, isEdit} = this.state;
-        console.log(clinics);
+        let {name, address, selectedImage, descriptionMarkdown, professionalStrengthsMarkdown, equipmentsMarkdown, clinics, isEdit} = this.state;
         return (
             <div className="container">
                 <div className="doctor">
                     <div className="title"><FormattedMessage id="menu.clinic.title"/></div>
-                    <div className="doctor-top">
-                        <div className="doctor-top-left">
-                            <label className="choose-title"><FormattedMessage id="menu.clinic.choose-clinic"/></label>
-                            <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    placeholder="Name"
-                                    value={name}
-                                    onChange={(e) => this.handleChangeInput(e)}
+                    
+                        <div className="row">
+                            <div className="col-6">
+                                <label className="choose-title"><FormattedMessage id="menu.clinic.choose-clinic"/></label>
+                                <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        placeholder="Name"
+                                        value={name}
+                                        onChange={(e) => this.handleChangeInput(e, 'name')}
                                 />
+                            </div>
+                            <div className="col-6">
+                                <label className="choose-title"><FormattedMessage id="menu.clinic.address"/></label>
+                                <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        placeholder="Address"
+                                        value={address}
+                                        onChange={(e) => this.handleChangeInput(e, 'address')}
+                                />
+                            </div>
                         </div>
-                        <div className="doctor-top-right form-group">
+                        <div className="row">
                             <div className="choose-title"><FormattedMessage id="menu.clinic.choose-image"/></div>
                             <input
                                 type="file"
@@ -195,18 +212,17 @@ class ManageClinic extends Component {
                                 onChange={(e) => this.handleChangeImage(e)}
                             />
                             <label 
-                                className="preview-btn"
+                                className="clinic-btn"
                                 htmlFor="image"
                             >
-                                    <FormattedMessage id="menu.clinic.choose-image"/> <i className="fas fa-upload"></i>
+                                <i className="clinic-btn-upload fas fa-upload"></i>
                             </label>
                             <div 
-                                className="preview-container"
+                                className="clinic-avatar container"
                                 style={{backgroundImage: `url(${selectedImage})`}}
                             >
                             </div>
                         </div>    
-                    </div>
                     
                     <div className="editor">
                         <div className="editor-item">
@@ -220,7 +236,7 @@ class ManageClinic extends Component {
                         </div>
                         <div className="editor-item">
                             <label className="choose-title"><FormattedMessage id="menu.clinic.professionalStrengths"/></label>
-Clin                            <MdEditor 
+                            <MdEditor 
                                 value={professionalStrengthsMarkdown}
                                 style={{ height: '300px' }} 
                                 renderHTML={text => mdParser.render(text)} 
@@ -239,7 +255,7 @@ Clin                            <MdEditor
                     </div>
                     <button 
                         className="doctor-btn"
-                        onClick = {this.handleSubmit}
+                        onClick = {() => this.handleSubmit()}
                     >
                         {isEdit===true ? 'Save' : 'Create'}
                     </button>
@@ -249,6 +265,7 @@ Clin                            <MdEditor
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Address</th>
                                 <th>CreatedAt</th>
                                 <th>UpdatedAt</th>
                                 <th>Actions</th>
@@ -259,6 +276,7 @@ Clin                            <MdEditor
                                 <tr key={clinic.id}>
                                     <td>{clinic.id}</td>
                                     <td>{clinic.name}</td>
+                                    <td>{clinic.address}</td>
                                     <td>{clinic.createdAt}</td>
                                     <td>{clinic.updatedAt}</td>
                                     <td>

@@ -5,10 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import * as actions from '../../../store/actions';
-import { LANGUAGES, ACTIONS } from '../../../utils';
-import { CommonUtils } from '../../../utils';
-import { convertToImage } from '../../../components/Formating/GeneralClass';
+import * as actions from '../../../../store/actions';
+import { CommonUtils } from '../../../../utils';
+import { convertToImage } from '../../../../components/Formating/GeneralClass';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class ManageSpecialty extends Component {
@@ -114,8 +113,8 @@ class ManageSpecialty extends Component {
             <div className="container">
                 <div className="doctor">
                     <div className="title"><FormattedMessage id="menu.specialty.title"/></div>
-                    <div className="doctor-top">
-                        <div className="doctor-top-left">
+                    <div className="row">
+                        <div className="col-4">
                             <label><FormattedMessage id="menu.specialty.choose-specialty"/></label>
                             <input 
                                     type="text" 
@@ -125,7 +124,7 @@ class ManageSpecialty extends Component {
                                     onChange={(e) => this.handleChangeInput(e)}
                                 />
                         </div>
-                        <div className="doctor-top-right form-group">
+                        <div className="col-8">
                             <div><FormattedMessage id="menu.specialty.choose-image"/></div>
                             <input
                                 type="file"
@@ -134,13 +133,13 @@ class ManageSpecialty extends Component {
                                 onChange={(e) => this.handleChangeImage(e)}
                             />
                             <label 
-                                className="preview-btn"
+                                className="specialty-btn"
                                 htmlFor="image"
                             >
-                                    <FormattedMessage id="menu.specialty.choose-image"/> <i className="fas fa-upload"></i>
+                                    <i className="specialty-btn-upload fas fa-upload"></i>
                             </label>
                             <div 
-                                className="preview-container"
+                                className="specialty-avatar"
                                 style={{backgroundImage: `url(${selectedImage})`}}
                             >
                             </div>
@@ -158,7 +157,7 @@ class ManageSpecialty extends Component {
                     </div>
                     <button 
                         className="doctor-btn"
-                        onClick = {this.handleSubmit}
+                        onClick = {() => this.handleSubmit()}
                     >
                         {isEdit===true ? 'Save' : 'Create'}
                     </button>

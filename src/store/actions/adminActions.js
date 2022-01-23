@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { createNewUser, deleteUser, getAllcode, getAllUsers, editUser, getTopDoctorHome, getAllDoctors, saveInforDoctor, getDetailDoctor, getGeneralClinic, getIntroDoctor, getDoctorForBooking, postPatientBooking, createInforSpecialty, getAllSpecialty, getGeneralSpecialty, deleteSpecialty, updateSpecialty, getPatients, createInforClinic, getAllClinic } from '../../services/userService';
+import { createNewUser, deleteUser, getAllcode, getAllUsers, editUser, getTopDoctorHome, getAllDoctors, saveInforDoctor, getDetailDoctor, getGeneralClinic, getIntroDoctor, getDoctorForBooking, postPatientBooking, createInforSpecialty, getAllSpecialty, getGeneralSpecialty, deleteSpecialty, updateSpecialty, getPatients, createInforClinic, getAllClinic, getHomeClinic, getAllHandbook, getHomeHandbook } from '../../services/userService';
 import { toast } from 'react-toastify';
 
 export const adminLoginSuccess = (adminInfo) => ({
@@ -514,9 +514,14 @@ export const postPatientBookingSuccess = (data) => {
                     type: actionTypes.POST_PATIENT_BOOKING_SUCCESS,
                 });
                 toast.success('Đặt lịch thành công. Vui lòng check email và xác nhận!');
-            } else {
+            } 
+            if(res && res.errCode===2) {
                 dispatch(postPatientBookingFail());
-                toast.warn('Bạn đã đặt lịch hẹn này!');    
+                toast.warn('Lịch khám này đã đạt số lượng bệnh nhân cho phép. Vui lòng chọn lịch khám khác!');    
+            }
+            if(res && res.errCode===1) {
+                dispatch(postPatientBookingFail());
+                toast.warn('Vui lòng điền đầy đủ thông tin!');
             }
         } catch(e) {
             dispatch(postPatientBookingFail());
@@ -714,7 +719,7 @@ export const  getAllClinicSuccess = () => {
             if(res && res.errCode===0) {
                 dispatch({
                     type: actionTypes.GET_ALL_CLINIC_SUCCESS,
-                    data: res.clinic
+                    data: res.clinics
                 });
                 
             } else {
@@ -730,4 +735,53 @@ export const  getAllClinicSuccess = () => {
 
 export const getAllClinicFail = () => ({
     type: actionTypes.GET_ALL_CLINIC_FAIL
+});
+
+export const  getHomeClinicSuccess = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getHomeClinic();
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.GET_HOME_CLINIC_SUCCESS,
+                    data: res.clinics
+                });
+                
+            } else {
+                dispatch(getHomeClinicFail());
+                   
+            }
+        } catch(e) {
+            dispatch(getHomeClinicFail());
+            
+        }
+    }
+};
+
+export const getHomeClinicFail = () => ({
+    type: actionTypes.GET_HOME_CLINIC_FAIL
+});
+
+export const  getHomeHandbooksSuccess = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getHomeHandbook();
+            if(res && res.errCode===0) {
+                dispatch({
+                    type: actionTypes.GET_HOME_HANDBOOKS_SUCCESS,
+                    data: res.handbooks
+                });
+                
+            } else {
+                dispatch(getHomeHandbooksFail());   
+            }
+        } catch(e) {
+            dispatch(getHomeHandbooksFail());
+            
+        }
+    }
+};
+
+export const getHomeHandbooksFail = () => ({
+    type: actionTypes.GET_HOME_HANDBOOKS_FAIL
 });

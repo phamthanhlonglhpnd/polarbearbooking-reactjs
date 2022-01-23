@@ -89,7 +89,7 @@ class ModalUser extends Component {
                     <Button
                         className="px-3"
                         color="primary"
-                        onClick={this.handleSendPrescription}
+                        onClick={() => this.handleSendPrescription()}
                     >
                         Confirm
                     </Button>

@@ -106,12 +106,12 @@ class ManagePatient extends Component {
         let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
         let {patients, currentDate} = this.state; 
         return (
-            <>
-                <div className="patient-tilte text-center">
+            <div style={{paddingBottom: '309px'}}>
+                <div className="title">
                     <FormattedMessage id="menu.doctor.manage-patient"/>
                 </div>
                 <div className="container">
-                    <div className="date">
+                    <div className="choose-title">
                         <span><FormattedMessage id="menu.doctor.choose-date"/></span>
                         <DatePicker
                             className="schedule-select form-control"
@@ -172,7 +172,7 @@ class ManagePatient extends Component {
                     toggleModal={this.toggleModal}
                     sendPrescription={this.sendPrescription}
                 />
-            </>
+            </div>
         );
     }
 

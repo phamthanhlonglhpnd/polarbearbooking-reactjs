@@ -1,0 +1,107 @@
+.admin {
+    margin: 20px 20px;
+    &-button {
+        border: none;
+        background-color: transparent;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        font-size: 20px;
+        background-color: #2F3439;
+        border-radius: 10px;
+    }
+    &-doctor {
+        background-color: #343A40;
+        color: #ced4da;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        &-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px 10px;
+        }
+        &-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        &-bottom {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 20px 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px 20px;
+        }
+        &-item {
+            text-align: center;
+        } 
+    }
+    &-general {
+        color: white;
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px 20px;
+        &-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: #343A40;
+            border-radius: 8px;
+        }
+        &-icon {
+            color: white !important;
+        }
+    }
+    &-clinic {
+        &-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        &-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: #343A40;
+            border-radius: 8px;
+            &:nth-child(1) {
+                background-color: #F39C12;
+            }
+            &:nth-child(2) {
+                background-color: white;
+            }
+            &:nth-child(3) {
+                background-color: #00BC8C;
+            }
+            &:nth-child(4) {
+                background-color: #3498DB;
+            }
+            &:nth-child(5) {
+                background-color: red;
+            }
+            &:nth-child(6) {
+                background-color: #ECDCCC;
+            }
+        }
+        &-icon {
+            color: black !important;
+            margin-right: 10px;
+        }
+    }
+    &-booking {
+        padding: 20px 20px;
+        &-chart {
+            background-color: #A38D85;
+            color: white;
+        }
+    }
+}
+

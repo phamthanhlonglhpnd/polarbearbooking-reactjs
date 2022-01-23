@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
-import {LANGUAGES, USER_ROLE} from '../../../utils';
 import './ListDoctor.scss';
+import HomeHeader from '../../HomePage/HomeHeader';
+import HomeFooter from '../../HomePage/HomeFooter'
+import { Link } from 'react-router-dom';
+import { searchInformationDoctor } from '../../../services/userService';
+import IntroDoctor from './IntroDoctor';
 import { FormattedMessage } from 'react-intl';
-import HomeHeader from '../../HomePage/HomeHeader'
-import { convertToImage } from '../../../components/Formating/GeneralClass';
 
 class ListDoctor extends Component {
 
@@ -20,10 +22,6 @@ class ListDoctor extends Component {
         await this.props.getTopDoctorHomeSuccess();
     }
 
-    handleChange = (e) => {
-
-    }
-
     componentDidUpdate(prevProps) {
         if(prevProps.topDoctorHome!==this.props.topDoctorHome || prevProps.language!==this.props.language) {
             this.setState({
@@ -32,40 +30,48 @@ class ListDoctor extends Component {
         }
     }
 
+    handleChange = async (e) => {
+        let res = await searchInformationDoctor(e.target.value);
+        console.log(res);
+        if(res && res.errCode===0) {
+            this.setState({
+                listDoctor: res.doctors
+            })
+        }
+        if(!e.target.value) {
+            this.setState({
+                listDoctor: this.props.topDoctorHome
+            })
+        }
+    }
+
     render() {
-        let {language} = this.props;
         let {listDoctor} = this.state;
-        
         return (
-            <div>
+            <>
                 <HomeHeader isShowBanner={false}/>
                 <div className="listDoctor">
                     <div className="listDoctor-top">
                         <div className="listDoctor-search container">
-                            <div className="listDoctor-title">Bac si noi bat</div>
+                            <div className="listDoctor-title"><FormattedMessage id="common.doctor"/></div>
                             <input 
                                 className="form-control"
                                 onChange={(e) => this.handleChange(e)}
                             />
                         </div>
                     </div>
-                    <div className="listDoctor-bottom container">
-                        <div className="listDoctor-result">Ket qua tim kiem</div>
+                    <div className="listDoctor-bottom">
+                        <div className="listDoctor-result"><FormattedMessage id="common.result"/></div>
                         {listDoctor && listDoctor.length>0 && listDoctor.map(doctor => (
                             <div className="listDoctor-item" key={doctor.id}>
-                                <img className="listDoctor-avatar" src={`${convertToImage(doctor.image)}`} alt='' />
-                                <div className="listDoctor-infor">
-                                    <div className="listDoctor-name">
-                                        <span>{language===LANGUAGES.VI ? doctor.positionData.valueVi : doctor.positionData.valueEn} </span>
-                                        <span>{language===LANGUAGES.VI ? `${doctor.firstName} ${doctor.lastName}` : `${doctor.lastName} ${doctor.firstName}`}</span>
-                                    </div>
-                                    <div className="listDoctor-specialty">{doctor.Doctor_Infor.specialty.name}</div>
-                                </div>
+                                <IntroDoctor id={doctor.id}/>
+                                <Link to={`/detail-doctor-by-id/${doctor.id}`} className="see-more"><FormattedMessage id="homepage.see-more"/></Link>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
+                <HomeFooter/>
+            </>
         );
     }
 

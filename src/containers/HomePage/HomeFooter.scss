@@ -1,5 +1,6 @@
 .footer {
     background-color: #EFEFEF;
+    // margin-top: 250px;
     &-container {
         width: 80%;
         margin: 0 auto;
@@ -58,5 +59,20 @@
     }
     &-bottom {
         padding: 30px 0;
+    }
+    &-copy {
+        background-color: #C7B2B5;
+        height: 80px;
+        width: 100vw;
+        &-container {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-left, &-right {
+            padding: 15px 0;
+        }
     }
 }

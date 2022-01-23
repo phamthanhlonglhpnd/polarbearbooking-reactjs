@@ -31,11 +31,6 @@ class Doctor extends Component {
         }
     }
 
-    // convertToImage = (item) => {
-    //     let imageBase64 = new Buffer(item, 'base64').toString('binary');
-    //     return imageBase64;
-    // }
-
     render() {
         let settings = this.props.settings;
         let {language} = this.props;
@@ -43,7 +38,7 @@ class Doctor extends Component {
         return (
             <div className="section">
                 <div className="section-content">
-                    <button className="section-btn"><FormattedMessage id="homepage.see-more"/></button>
+                    <Link to='/search-doctor/' className="section-btn"><FormattedMessage id="homepage.see-more"/></Link>
                     <div className="section-bottom">
                         <div className="section-title"><FormattedMessage id="homepage.outstanding-doctor"/></div>
                         <Slider {...settings} className="section-option">

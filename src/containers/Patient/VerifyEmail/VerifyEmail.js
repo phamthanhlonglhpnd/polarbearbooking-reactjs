@@ -23,10 +23,14 @@ class VerifyEmail extends Component {
         let urlParam = new URLSearchParams(this.props.location.search);
         let token = urlParam.get('token');
         let doctorId = urlParam.get('doctorId');
+        let date = urlParam.get('date');
+        let timeType = urlParam.get('timeType');
         
         let res = await postVerifyBooking({
             token: token,
-            doctorId: doctorId
+            doctorId: doctorId,
+            date: date,
+            timeType: timeType
         });
 
         let contentVISuccess = 'Xác nhận lịch hẹn thành công!';

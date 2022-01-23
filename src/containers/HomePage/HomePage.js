@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './HomePage.scss';
 import { connect } from 'react-redux';
-import HomeHeader from './HomeHeader';
-import Specialty from './Section/Specialty/Specialty';
-import Facility from './Section/Facility/Facility';
-import Doctor from './Section/Doctor/Doctor';
-import About from './Section/About/About';
-import HomeFooter from './HomeFooter';
+const HomeHeader = React.lazy(() => import('./HomeHeader'));
+const Specialty = React.lazy(() => import('./Section/Specialty/Specialty'));
+const Facility = React.lazy(() => import('./Section/Facility/Facility'));
+const Doctor = React.lazy(() => import('./Section/Doctor/Doctor'));
+const Handbook = React.lazy(() => import('./Section/Handbook/Handbook'));
+const About = React.lazy(() => import('./Section/About/About'));
+const MobileApp = React.lazy(() => import('./Section/MobileApp/MobileApp'));
+
+const HomeFooter = React.lazy(() => import('./HomeFooter'));
 
 
 class HomePage extends Component {
@@ -48,12 +51,30 @@ class HomePage extends Component {
         };
         return (
             <div>
-                <HomeHeader isShowBanner={true}/>
-                <Specialty settings={settings}/>
-                <Facility settings={settings}/>
-                <Doctor settings={settings}/>
-                <About/>
-                <HomeFooter/>
+                <React.Suspense fallback={null}>
+                  <HomeHeader isShowBanner={true}/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <Specialty settings={settings}/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <Facility settings={settings}/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <Doctor settings={settings}/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <Handbook settings={settings}/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <About/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <MobileApp/>
+                </React.Suspense>
+                <React.Suspense fallback={null}>
+                  <HomeFooter/>
+                </React.Suspense>
             </div>
         );
     }

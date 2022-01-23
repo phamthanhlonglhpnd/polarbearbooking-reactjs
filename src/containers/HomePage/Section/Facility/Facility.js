@@ -23,7 +23,7 @@ class Facility extends Component {
         let res = await getHomeClinic();
         if(res && res.errCode===0) {
             this.setState({
-                clinics: res.clinic
+                clinics: res.clinics
             })
         }
     }
@@ -34,7 +34,7 @@ class Facility extends Component {
         return (
             <div className="section">
                 <div className="section-content">
-                    <button className="section-btn"><FormattedMessage id="homepage.see-more"/></button>
+                    <Link to='/search-clinic/' className="section-btn"><FormattedMessage id="homepage.see-more"/></Link>
                     <div className="section-bottom">
                         <div className="section-title"><FormattedMessage id="homepage.outstanding-medical-facility"/></div>
                         <Slider {...settings} className="section-option">

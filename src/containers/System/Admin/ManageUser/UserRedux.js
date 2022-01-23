@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import {LANGUAGES, ACTIONS, CommonUtils} from '../../../utils';
-import * as actions from '../../../store/actions';
+import {LANGUAGES, ACTIONS, CommonUtils} from '../../../../utils';
+import * as actions from '../../../../store/actions';
 import './UserRedux.scss'
 import UserTableManage from './UserTableManage';
 class UserRedux extends Component {
@@ -142,11 +142,11 @@ class UserRedux extends Component {
         let {email, password, firstName, lastName, gender, positionId, roleId, phonenumber, address} = this.state;
         return (
             <>
-                <div className="text-center" >User Redux</div>
+                <div className="title" >User Redux</div>
                 <form className="container">
                     <div className="row">
                         <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">
+                        <label>
                             <FormattedMessage id="system.user-manage.email"/>
                         </label>
                         <input 

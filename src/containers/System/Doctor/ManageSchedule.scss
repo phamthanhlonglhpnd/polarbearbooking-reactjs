@@ -1,4 +1,5 @@
 .schedule {
+    padding-bottom: 65px;
     &-title {
         margin: 20px 0;
         font-size: 20px;
@@ -13,6 +14,8 @@
         margin: 30px 0;
     }
     &-btn {
+        min-width: 120px;
+        background-color: white;
         margin-top: 25px;
         margin-right: 25px;
         padding: 0 5px;
@@ -20,7 +23,17 @@
     }
     &-active {
         background-image: linear-gradient(45deg, #ff6626 15%, #ffa641 100%) !important;
-     }
+    }
+    &-list {
+        margin: 30px 0;
+        &-select {
+            margin-left: 20px;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            background-color: papayawhip;
+        }
+    }
  }
 
  

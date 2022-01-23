@@ -1,12 +1,12 @@
 @import "../../styles/common.scss";
 
 .header {
+    padding: 10px 20px;
     z-index: 99;
     display: flex;
-    justify-content: space-between;
-    background-color: $colormain;
-    color: $common-text-color;
-    height: 40px;
+    align-items: center;
+    background-color: #343A40;
+    
     position: relative;
     .btn-logout {
         color: $common-text-color;
@@ -20,9 +20,34 @@
             font-size: $base-size + 1px;
         }
     }
+    &-left {
+        width: 20%;
+    }
+    &-brand {
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+    }
+    &-logo {
+        height: 40px;
+        widows: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
     &-right {
+        color: white;
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        flex: 1;
+        &-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            a {
+                color: white;
+            }
+        }
     }
     &-language {
         &-VI, &-EN {
@@ -36,7 +61,16 @@
     }
 }
 
-
+.body {
+    display: flex;
+    background-color: #f1d9cb;
+    &-left {
+        width: 20%;
+    }
+    &-right {
+        flex: 1;
+    }
+}
 
 
 

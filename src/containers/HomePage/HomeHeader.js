@@ -7,29 +7,12 @@ import img3 from '../../assets/images/HomeHeader/kham_tongquat.png';
 import img4 from '../../assets/images/HomeHeader/dichvu_xetnghiem.png';
 import img5 from '../../assets/images/HomeHeader/suckhoe_tinhthan.png'; 
 import img6 from '../../assets/images/HomeHeader/kham_nhakhoa.png';
+import logo from '../../assets/images/HomeHeader/logo.jpg';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../store/actions';
-import {LANGUAGES} from '../../utils';
+import {LANGUAGES, path} from '../../utils';
 import {Link} from 'react-router-dom';
 import { convert, convertObject} from '../../components/Formating/GeneralClass';
-import Select from 'react-select';
-const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        // borderBottom: '1px dotted pink',
-        // color: state.isSelected ? 'red' : 'blue',
-      }),
-      control: () => ({
-        width: 460,
-        margin: 0
-      }),
-      singleValue: (provided, state) => {
-        const opacity = state.isDisabled ? 0.5 : 1;
-        const transition = 'opacity 300ms';
-    
-        return { ...provided, opacity, transition };
-      }
-  }
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -71,7 +54,6 @@ class HomeHeader extends Component {
 
     render() {
         let {language} = this.props;
-        let {listSpecialty, selectedSpecialty} = this.state;
         
         return (
             <>
@@ -80,30 +62,31 @@ class HomeHeader extends Component {
                         <div className="home-header-left">
                             
                                 <i className="fas fa-bars"></i>
-                                <Link to='/home' className="home-header-logo">
+                                <img src={logo} alt='' className='home-header-logo'/>
+                                <Link to='/home' className="home-header-name">
                                     PolarbearCare
                                 </Link>
                             
                         </div>
                         <div className="home-header-center">
-                            <div className="home-header-option">
-                                <span className="home-header-name">
+                            <Link to='/search-specialty/' className="home-header-option">
+                                <span className="home-header-item">
                                     <FormattedMessage id="homeheader.medical-specialty"/>
                                 </span>
                                 <div className="home-header-detail">
                                     <FormattedMessage id="homeheader.search-doctor"/>
                                 </div>
-                            </div>
-                            <div className="home-header-option">
-                                <span className="home-header-name">
+                            </Link>
+                            <Link to='/search-clinic/' className="home-header-option">
+                                <span className="home-header-item">
                                     <FormattedMessage id="homeheader.health-facility"/>
                                 </span>
                                 <div className="home-header-detail">
                                     <FormattedMessage id="homeheader.select-facility"/>
                                 </div>
-                            </div>
+                            </Link>
                             <Link to='/search-doctor/' className="home-header-option">
-                                <span className="home-header-name">
+                                <span className="home-header-item">
                                     <FormattedMessage id="homeheader.doctor"/>
                                 </span>
                                 <div className="home-header-detail">
@@ -111,7 +94,7 @@ class HomeHeader extends Component {
                                 </div>
                             </Link>
                             <div className="home-header-option">
-                                <span className="home-header-name">
+                                <span className="home-header-item">
                                     <FormattedMessage id="homeheader.health-package"/>
                                 </span>
                                 <div className="home-header-detail">
@@ -138,6 +121,10 @@ class HomeHeader extends Component {
                                     EN
                                 </span>
                             </div>
+                            <div className="home-header-action">
+                                <Link to={path.LOGIN} className="home-header-login"><FormattedMessage id="common.login"/></Link>
+                                <Link to={path.REGISTER} className="home-header-register"><FormattedMessage id="common.register"/></Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,15 +139,6 @@ class HomeHeader extends Component {
                         <div className="banner-search">
                             <div className="banner-search-write">
                                 <i className="fas fa-search banner-search-icon"></i>
-                                <Select
-                                    placeholder="Search"
-                                    className="banner-search-input"
-                                    value={selectedSpecialty}
-                                    name="selectedSpecialty"
-                                    onChange={this.handleChangeSelect}
-                                    options={listSpecialty}
-                                    styles={customStyles}
-                                />
                             </div>
                         </div>
                         <div className="banner-service">

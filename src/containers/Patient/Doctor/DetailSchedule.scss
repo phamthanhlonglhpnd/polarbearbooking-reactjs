@@ -12,6 +12,14 @@
         background-color: #EFB4A6;
         min-width: 125px;
         margin: 20px 20px;
+        position: relative;
+    }
+    &-warn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: red !important;
+        margin-left: 0 !important;
     }
     &-calendar {
         display: flex;

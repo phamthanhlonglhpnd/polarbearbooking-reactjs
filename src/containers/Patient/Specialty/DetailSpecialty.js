@@ -10,6 +10,7 @@ import IntroDoctor from '../Doctor/IntroDoctor';
 import DetailSchedule from '../Doctor/DetailSchedule';
 import DetailClinic from '../Doctor/DetailClinic';
 import { LANGUAGES } from '../../../utils';
+import HomeFooter from '../../HomePage/HomeFooter';
 
 
 class DetailSpeacialty extends Component {
@@ -71,12 +72,14 @@ class DetailSpeacialty extends Component {
         let {specialty, doctors, provinceArr} = this.state;
         let {language} = this.props
         return (
+            <>
+            <HomeHeader isShowBanner={false}/>
             <div className="specialty">
                 <img
                     className="specialty-background" 
-                    src={`${convertToImage(specialty.image)}`} alt="" 
+                    src={`${convertToImage(specialty.image ? specialty.image : '')}`} alt="" 
                 />
-                <HomeHeader isShowBanner={false}/>
+                
                 
                     <div className="specialty-description container">
                         <div className="specialty-name">{specialty.name}</div>
@@ -102,21 +105,26 @@ class DetailSpeacialty extends Component {
                             </select>
                             {doctors && doctors.length>0 && doctors.map(doctor => (
                                 <div className="specialty-doctor" key={doctor.doctorId}>
-                                    <div className="specialty-doctor-content">
-                                        <div className="specialty-doctor-left">
+                                    <div className="detail-top">
+                                        <div className="container">
                                             <IntroDoctor id={doctor.doctorId}/>
-                                            <DetailClinic param={doctor.doctorId} />
-                                        </div>
-                                        <div className="specialty-doctor-right">
-                                            <DetailSchedule param={doctor.doctorId}/>
-                                        </div>
+                                            <div className="detail-schedule">
+                                                <div className="detail-schedule-left">
+                                                    <DetailSchedule param = {doctor.doctorId}/>
+                                                </div>
+                                                <div className="detail-schedule-right">
+                                                    <DetailClinic param = {doctor.doctorId}/>
+                                                </div>
+                                            </div>
+                                        </div>     
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-               
+                    </div>    
             </div>
+            <HomeFooter/>
+            </>
         );
     }
 

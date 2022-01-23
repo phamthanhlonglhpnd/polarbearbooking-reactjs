@@ -54,6 +54,16 @@ class HomeFooter extends Component {
                         <span className="footer-bottom-content">Tải ứng dụng BookingCare cho điện thoại hoặc máy tính bảng: Android/iPhone/iPad/Khác</span>
                     </div>
                 </div>
+                <div className='footer-copy'>
+                    <div className='footer-copy-container'>
+                        <div className='footer-copy-left'>© 2021 Polarbear Care.</div>
+                        <div className='footer-copy-right'>
+                            <i className="fab fa-facebook"></i>
+                            <i className="fab fa-twitter"></i>
+                            <i className="fab fa-google-plus"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

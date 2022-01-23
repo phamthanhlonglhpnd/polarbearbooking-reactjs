@@ -1,0 +1,19 @@
+.detail-handbook {
+    margin-top: 100px;
+    &-title {
+        font-size: 30px;
+        font-weight: 700;
+        text-align: center;
+        padding: 20px 0;
+    }
+    &-info {
+        background: '#FCFAF6';
+    }
+    &-slogan {
+        padding: 10px 5px;
+        border-radius: 10px;
+    }
+    img {
+        width: 100%;
+    }
+}

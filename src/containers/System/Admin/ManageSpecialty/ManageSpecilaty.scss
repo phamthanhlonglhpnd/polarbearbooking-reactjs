@@ -1,0 +1,26 @@
+.specialty {
+    &-avatar {
+        width: 100%;
+        height: 300px;
+        border-radius: 20px;
+        box-shadow: 5px 10px 10px 5px rgba(216, 180, 114, 0.5);
+        border: 1px solid rgb(216, 180, 114);
+    }
+    &-btn {
+        margin-top: 5px;
+        border: none;
+        padding: 10px 10px;
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00);
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        position: relative;
+        &-upload {
+            position: absolute;
+            top: 50%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

@@ -1,4 +1,5 @@
-import moment from "moment";
+import moment from 'moment';
+import localization from 'moment/locale/vi';
 import {LANGUAGES} from '../../utils';
 
 export const formatPrice = (price) => {
@@ -80,4 +81,18 @@ export const convert = (itemArr, type, language) => {
         } 
     }
     return newArr
+}
+
+export const convertTimeStampToDate = (date, language) => {
+    let newDate = moment.unix(+date/1000).format('dddd - DD/MM/YYYY');
+    let dateVI = newDate.charAt(0).toUpperCase() + newDate.slice(1);
+    let dateEN = moment.unix(+date/1000).format('ddd - DD/MM/YYYY');
+    date = language===LANGUAGES.VI ? dateVI : dateEN;
+    return date;
+}
+
+export const getUTCDate = (date) => {
+    const d = new Date(date);
+    const utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    return utcDate;
 }

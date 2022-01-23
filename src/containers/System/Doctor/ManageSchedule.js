@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions';
 import { LANGUAGES} from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
 import './ManageSchedule.scss'
 import { toast } from 'react-toastify';
-import {bulkCreateSchedule} from '../../../services/userService';
-import moment from 'moment';
+import {bulkCreateSchedule, deleteScheduleByDate, getScheduleByDate} from '../../../services/userService';
+import { setDate } from '../../../components/Formating/GeneralClass';
 
 class System extends Component {
 
@@ -19,12 +18,24 @@ class System extends Component {
             doctorArr: [],
             currentDate: '',
             times: [],
+            days: [],
+            scheduleTime: []
         }
     }
 
     async componentDidMount() {
+        let {language, userInfo} = this.props;
+        let arrDate = setDate(language);
+        let res = await getScheduleByDate(userInfo.id, arrDate[0].value);
+        if(res && res.errCode===0) {
+            this.setState({
+                days: arrDate,
+                scheduleTime: res.schedule
+            })
+        }
         await this.props.getAllDoctorsSuccess();
         await this.props.getScheduleHoursSuccess();
+
     }
 
     componentDidUpdate(prevProps) {
@@ -39,7 +50,12 @@ class System extends Component {
                 times: data
             })
         }
-        
+        if(prevProps.language !== this.props.language) {
+            let arrDate = setDate(this.props.language);
+            this.setState({
+                days: arrDate
+            })
+        }
     }
 
     convertOption = (doctorArr) => {
@@ -87,21 +103,17 @@ class System extends Component {
             toast.error('Plz choose date!');
             return;
         };
-        if(!selectedOption) {
-            toast.error('Plz choose doctor!');
-            return;
-        }
-        //Object.fromEntries(Object.entries(item).slice(3, 5))
         let formatDate = new Date(currentDate).getTime();
-        let schedule = times.filter(time => time.isActive===true)
+        let schedule = times.filter(time => time.isActive===true);
+        let doctorId = this.props.userInfo.id;
         let finalArr = schedule.map(item => ({
-            doctorId: selectedOption.value,
+            doctorId: selectedOption.value || doctorId,
             date: formatDate,
             timeType: item.keyMap
         }))
         let res = await bulkCreateSchedule({
             arrSchedule: finalArr,
-            doctorId: selectedOption.value,
+            doctorId: selectedOption.value || doctorId,
             date: formatDate
         });
         if(res && res.errCode===0) {
@@ -109,31 +121,60 @@ class System extends Component {
         } else {
             toast.error('Lưu thất bại!');
         }
-        
+
+        let newState = {...this.state};
+        newState.times.map(item => {
+            return item.isActive = false;
+        })
+
+        this.setState({
+            currentDate: '',
+            selectedOption: '',
+            ...newState
+        })
+    }
+
+    handleGetScheduleByDate = async (e) => {
+        let res = await getScheduleByDate(this.props.userInfo.id, e.target.value);
+        if(res && res.errCode===0 && res.schedule && res.schedule.length>0) {
+            this.setState({
+                scheduleTime: res.schedule
+            })
+        } else {
+            this.setState({
+                scheduleTime: []
+            })
+        }
+    }
+
+    handleDeleteSchedule = async (item) => {
+        let res = await deleteScheduleByDate(item.doctorId, item.date, item.timeType);
+        if(res && res.errCode===0) {
+            toast.success('Delete success!')
+        };
+        let {userInfo} = this.props;
+        let time = await getScheduleByDate(userInfo.id, this.state.days);
+        if(time && time.errCode===0) {
+            this.setState({
+                scheduleTime: time.schedule
+            })
+        }
     }
 
     render() {
         let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
-        let {times} = this.state;
+        let {times, days, scheduleTime} = this.state;
         let {language} = this.props;
+        
         return (
             <div className="schedule">
-                <div className="schedule-title">
+                <div className="title">
                     <FormattedMessage id="menu.doctor.manage-schedule"/>
                 </div>
                 <div className="container">
                     <div className="row">
-                        <div className="col-6">
-                            <label><FormattedMessage id="menu.doctor.choose-doctor"/></label>
-                            <Select
-                                className="schedule-select"
-                                value={this.state.selectedOption}
-                                onChange={this.handleChangeDoctor}
-                                options={this.state.doctorArr}
-                            />
-                        </div>
-                        <div className="col-6">
-                            <label><FormattedMessage id="menu.doctor.choose-date"/></label> <br/>
+                        <div className="col-12">
+                            <label className='choose-title'><FormattedMessage id="menu.doctor.choose-date"/></label> <br/>
                             <DatePicker 
                                 className="schedule-select form-control"
                                 onChange={this.handleChangeDate}
@@ -142,25 +183,46 @@ class System extends Component {
                             />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="schedule-date">
-                            {times && times.length>0 && times.map((item) => (
-                                <button 
-                                    className={item.isActive ? "btn schedule-btn schedule-active": "btn schedule-btn"} 
-                                    key={item.id}
-                                    onClick={() => this.handleActive(item)}
-                                >
-                                    {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+                    <div className="schedule-date">
+                        {times && times.length>0 && times.map((item) => (
+                            <button 
+                                className={item.isActive ? "btn schedule-btn schedule-active": "btn schedule-btn"} 
+                                key={item.id}
+                                onClick={() => this.handleActive(item)}
+                            >
+                                {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                            </button>
+                        ))}
+                    </div>    
                     <button 
                         className="btn btn-primary"
-                        onClick = {this.handleSaveSchedule}
+                        onClick = {() => this.handleSaveSchedule()}
                     >
                         <FormattedMessage id="menu.doctor.save"/>
                     </button>
+                    <div className='schedule-list'>
+                        <label className='choose-title'><FormattedMessage id="menu.doctor.calendar"/></label>
+                        <select 
+                            className="schedule-list-select"
+                            onChange={(e) => this.handleGetScheduleByDate(e)}
+                        >
+                            {days && days.length>0 && days.map((day, index) => (
+                                <option value={day.value} key={index}>{day.lable}</option>
+                            ))}
+                        </select>
+                        <div className="detailSchedule-time">
+                            {(scheduleTime && scheduleTime.length>0) ? 
+                                scheduleTime.map(time => (
+                                <button 
+                                    key={time.id}
+                                    className="btn detailSchedule-btn"
+                                    onClick={() => this.handleDeleteSchedule(time)}
+                                >
+                                    {language===LANGUAGES.VI ? time.timeData.valueVi : time.timeData.valueEn}
+                                </button>
+                            )) : (<div style={{color: 'white', marginTop: '30px'}}><FormattedMessage id="menu.doctor.no-schedule"/></div>)}
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -173,6 +235,7 @@ const mapStateToProps = state => {
         language: state.app.language,
         doctors: state.admin.doctors,
         times: state.admin.times,
+        userInfo: state.user.userInfo
     };
 };
 

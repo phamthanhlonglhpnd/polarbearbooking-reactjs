@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions';
-import { LANGUAGES, ACTIONS } from '../../../utils';
+import * as actions from '../../../../store/actions';
+import { LANGUAGES, ACTIONS } from '../../../../utils';
 import './ManageDoctor.scss';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-import { getDetailDoctor } from '../../../services/userService';
+import { getDetailDoctor } from '../../../../services/userService';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -377,7 +377,7 @@ class ManageDoctor extends Component {
                 </div>
                 <button 
                     className="doctor-btn"
-                    onClick = {this.handleSubmit}
+                    onClick = {() => this.handleSubmit()}
                 >
                     {this.state.hasOldData===true ? 'Save' : 'Create'}
                 </button>

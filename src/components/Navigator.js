@@ -12,9 +12,13 @@ class MenuGroup extends Component {
         return (
             <li className="menu-group">
                 <div className="menu-group-name">
-                    <FormattedMessage id={name} />
+                    <div className='menu-group-left'>
+                        <i className="far fa-user"></i>
+                        <span><FormattedMessage id={name} /></span>
+                    </div>
+                    <i className="fas fa-chevron-left"></i>
                 </div>
-                <ul className="menu-list list-unstyled">
+                <ul className="menu-list">
                     {children}
                 </ul>
             </li>

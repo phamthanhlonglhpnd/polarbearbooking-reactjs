@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { formatImage } from '../../../components/Formating/GeneralClass';
 import { getIntroDoctor } from '../../../services/userService';
-// import * as actions from '../../../store/actions';
+import { Link } from 'react-router-dom';
 import {LANGUAGES} from '../../../utils';
 import './IntroDoctor.scss';
 
@@ -37,7 +37,7 @@ class IntroDoctor extends Component {
                     style={{backgroundImage: `url(${image})`}}
                 ></div>
                 <div className="detail-general">
-                    <div className="detail-name">{language===LANGUAGES.VI ? NameVI : NameEN}</div>
+                    <Link to={`/detail-doctor-by-id/${intro.id}`} className="detail-name">{language===LANGUAGES.VI ? NameVI : NameEN}</Link>
                     <div className="detail-position">{intro?.Markdown && intro.Markdown.description}</div>
                 </div>
             </div>                                          

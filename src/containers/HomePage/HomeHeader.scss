@@ -30,7 +30,7 @@
         margin: 0 auto;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 20px;
         cursor: pointer;
     }
     &-language-VI {
@@ -51,6 +51,12 @@
         }
     }
     &-logo {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+    &-name {
         font-size: 30px;
         background-image: linear-gradient(45deg, #4d1550 0%, #2BD2FF 52%, #2BFF88 90%);
         -webkit-background-clip: text;
@@ -58,7 +64,7 @@
         background-clip: text;
         color: transparent;
     }
-    &-name {
+    &-item {
         font-size: 14px;
         font-weight: 700;
         cursor: pointer;
@@ -72,6 +78,14 @@
         width: 20px;
         border-radius: 50%;
         background: #45c3d2;
+    }
+    &-login, &-register {
+        &:hover {
+            color: red;
+        }
+    }
+    &-login {
+        margin-right: 10px;
     }
 }
 

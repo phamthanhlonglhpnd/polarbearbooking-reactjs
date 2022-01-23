@@ -6,7 +6,6 @@ import { getGeneralClinic } from '../../../services/userService';
 import {LANGUAGES} from '../../../utils';
 import * as actions from '../../../store/actions';
 
-
 class DetailClinic extends Component {
 
     constructor(props) {

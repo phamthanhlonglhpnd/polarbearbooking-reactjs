@@ -1,36 +1,38 @@
 @import "../styles/common.scss";
 
 .navigator-menu {
-    display: flex;
     margin: 0;
     padding: 0;
-    &.list-unstyled,
-    .list-unstyled {
-        list-style-type: none;
-    }
     .menu-group {
         &:hover {
             cursor: pointer;
             background-color: darken($colormain, 5);
         }
         .menu-group-name {
+            i, span {
+                color: white;
+                margin-left: 10px;
+            }
             line-height: 40px;
             padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             border-right: 1px solid $border;
             &:first-child {
                 border-left: 1px solid $border;
             }
         }
         .menu-list {
+            list-style: none;
+            width: 100%;
             display: none;
             background-color: $bg-menu-color;
             box-shadow: 2px 2px 4px 0 $box-shadow-color;
             -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
             color: $text-in-light;
-            position: absolute;
             padding: 0;
             .menu {
-                max-width: 260px;
                 padding: 0 15px;
                 height: 35px;
                 line-height: 35px;

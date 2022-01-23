@@ -38,7 +38,7 @@ class Speacialty extends Component {
         return (
             <div className="section">
                 <div className="section-content">
-                    <button className="section-btn"><FormattedMessage id="homepage.see-more"/></button>
+                    <Link to='/search-specialty/' className="section-btn"><FormattedMessage id="homepage.see-more"/></Link>
                     <div className="section-bottom">
                         <div className="section-title"><FormattedMessage id="homepage.popular-specialization"/></div>
                         <Slider {...settings} className="section-option">

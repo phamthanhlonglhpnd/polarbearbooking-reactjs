@@ -22,30 +22,12 @@
         "dental-examination": "Khám nha khoa"
     },
     "common": {
-        "add": "Thêm",
-        "edit": "Sửa",
-        "delete": "Xóa",
-        "decentralize": "Phân quyền",
-        "close": "Đóng",
-        "save": "Lưu",
-        "refresh": "Refresh",
-        "accept": "Chấp nhận",
-        "confirm": "Xác nhận",
-        "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-        "fail-to-load-data": "Không thể tải về dữ liệu",
-        "unknown-error": "Có lỗi xảy ra",
-        "internal-server-error": "Lỗi kết nối",
-        "bad-request": "Yêu cầu không hợp lệ",
-        "forbiden-request": "Thông tin truyền vào không hợp lệ",
-        "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
-        "sum": "Tổng",
-        "date-range-invalid": "Khoảng thời gian không hợp lệ"
-    },
-    "login": {
+        "clinic": "Phòng khám nổi bật",
+        "specialty":"Chuyên khoa phổ biến",
+        "doctor":"Bác sĩ nổi bật",
+        "result": "Kết quả tìm kiếm",
         "login": "Đăng nhập",
-        "username": "Tên đăng nhập",
-        "password": "Mật khẩu",
-        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+        "register": "Đăng kí"
     },
     "menu": {
         "system": {
@@ -61,10 +43,11 @@
             }
         },
         "admin": {
+            "admin": "Admin",
             "user": "Người dùng",
             "manage-doctor": "Quản lý bác sĩ",
             "crud": "Quản lý người sử dụng",
-            "crud-redux": "Quản lý người sử dụng bằng Redux",
+            "crud-redux": "Quản lý người sử dụng",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
@@ -97,7 +80,14 @@
             "hide-detail": "Ẩn chi tiết",
             "price": "Giá khám",
             "payment": "Hình thức thanh toán",
-            "note": "Ghi chú"
+            "note": "Ghi chú",
+            "warn": "Số lượng bệnh nhân cho phép trong kíp khám đã đạt mức tối đa!"
+        },
+        "user": {
+            "manage-user": "Người dùng",
+            "medical-history": "Lịch sử khám bệnh",
+            "medical-examination-schedule": "Lịch khám bệnh",
+            "person-information": "Thông tin cá nhân"
         },
         "patient": {
             "firstName": "Họ", 
@@ -121,9 +111,16 @@
             "choose-image": "Chọn ảnh",
             "description": "Mô tả chung"
         },
+        "handbook": {
+            "title": "Tạo/Sửa/Xóa thông tin bài viết",
+            "choose-handbook": "Chọn bài viết",
+            "choose-image": "Chọn ảnh",
+            "description": "Mô tả chung"
+        },
         "clinic": {
             "title": "Tạo/Sửa/Xóa thông tin phòng khám",
             "choose-clinic": "Chọn phòng khám",
+            "address": "Địa chỉ",
             "choose-image": "Chọn ảnh",
             "description": "Mô tả chung",
             "professionalStrengths": "Thế mạnh chuyên môn",
@@ -173,6 +170,18 @@
         "see-more": "Xem thêm", 
         "popular-specialization": "Chuyên khoa phổ biến",
         "outstanding-medical-facility": "Cơ sở y tế nổi bật",
-        "about": "Truyền thông nói gì về Polarbear Care?"
+        "about": "Truyền thông nói gì về Polarbear Care?",
+        "app": "Tải ứng dụng Polarbear Care",
+        "faster": "Đặt khám nhanh hơn",
+        "receive": "Nhận thông báo từ hệ thống",
+        "instructions": "Nhận hướng dẫn đi khám chi tiết",
+        "convenient": "Đặt khám thuận tiện hơn",
+        "handbook": "Cẩm nang và Tin tức",
+        "product": "Sản phẩm của ",
+        "censor": "Người kiểm duyệt: ",
+        "publish": "Xuất bản: ",
+        "last-update": "Cập nhật lần cuối: ",
+        "specialty": "Chuyên khoa: ",
+        "goto-post": "Đi tới bài viết"
     }
 }

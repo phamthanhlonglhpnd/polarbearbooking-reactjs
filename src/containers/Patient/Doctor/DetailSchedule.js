@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './DetailSchedule.scss';
-import moment from 'moment';
-import localization from 'moment/locale/vi';
 import {LANGUAGES} from '../../../utils';
 import { getScheduleByDate } from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
@@ -21,19 +19,6 @@ class DetailSchedule extends Component {
             isShowModal: false
         }
     }
-
-    // setDate = (language) => {
-    //     let arrDate = [];
-    //     for(let i=0; i<7; i++) {
-    //         let object = {};
-    //         let dateVi = i>0 ? moment(new Date()).add(i, 'days').locale('vi').format('dddd - DD/MM') : 'Hôm nay - ' + moment(new Date()).add(0, 'days').locale('vi').format('DD/MM');
-    //         let dateEn = i>0 ? moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM') : 'Today - ' + moment(new Date()).add(i, 'days').locale('en').format('DD/MM');
-    //         object.lable = language === LANGUAGES.VI ? dateVi.charAt(0).toUpperCase() + dateVi.slice(1) : dateEn;
-    //         object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
-    //         arrDate.push(object);
-    //     }
-    //     return arrDate;
-    // }
 
     async componentDidMount() {
         let {language} = this.props;
@@ -110,8 +95,13 @@ class DetailSchedule extends Component {
                                 onClick={() => this.handleBooking(time)}
                             >
                                 {language===LANGUAGES.VI ? time.timeData.valueVi : time.timeData.valueEn}
+                                {time?.currentNumber=== time?.maxNumber ? <i class="fas fa-exclamation-triangle detailSchedule-warn"></i> : ''}
                             </button>
                         )) : (<FormattedMessage id="menu.doctor.no-schedule"/>)}
+                    </div>
+                    <div style={{marginBottom: '15px'}}>
+                        <i class="fas fa-exclamation-triangle" style={{color: 'red', marginRight: '8px'}}></i> 
+                        <FormattedMessage id="menu.doctor.warn"/>
                     </div>
                     <span>
                         <i style={{marginRight: '10px'}} className="far fa-hand-point-up"></i>

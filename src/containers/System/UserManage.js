@@ -86,8 +86,8 @@ class UserManage extends Component {
                 <ModalUser 
                     isOpen={this.state.isShowModal}
                     toggleModal={this.toggleModal}
-                    handleCreateNewUser={this.handleCreateNewUser}
-                    handleEditUser={this.handleEditUser}
+                    handleCreateNewUser={() => this.handleCreateNewUser}
+                    handleEditUser={() => this.handleEditUser}
                 />
                 <div className="title text-center">
                     Manage users

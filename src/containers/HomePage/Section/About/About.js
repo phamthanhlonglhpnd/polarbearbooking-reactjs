@@ -15,7 +15,7 @@ class About extends Component {
                     <div className="about-content">
                         <iframe
                             className="about-video"
-                            src="https://www.youtube.com/embed/72FLyNg0E2I?list=RD72FLyNg0E2I" 
+                            src="https://www.youtube.com/embed/i3wQ9BHIm1I" 
                             title="YouTube video player" 
                             frameBorder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

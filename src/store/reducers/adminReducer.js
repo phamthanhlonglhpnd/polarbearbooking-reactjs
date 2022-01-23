@@ -31,7 +31,9 @@ const initialState = {
     doctorForBooking: {},
     specialties: [],
     generalSpecialties: [],
-    patients: []
+    patients: [],
+    clinics: [],
+    handbooks: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -274,6 +276,26 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_PATIENTS_FAIL:
             state.patients = [];
+            return {
+                ...state,
+            }
+        case actionTypes.GET_HOME_CLINIC_SUCCESS:
+            state.clinics = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.GET_HOME_CLINIC_FAIL:
+            state.clinics = [];
+            return {
+                ...state,
+            }
+        case actionTypes.GET_HOME_HANDBOOKS_SUCCESS:
+            state.handbooks = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.GET_HOME_HANDBOOKS_FAIL:
+            state.handbooks = [];
             return {
                 ...state,
             }
