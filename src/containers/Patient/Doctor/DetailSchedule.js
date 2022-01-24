@@ -95,12 +95,12 @@ class DetailSchedule extends Component {
                                 onClick={() => this.handleBooking(time)}
                             >
                                 {language===LANGUAGES.VI ? time.timeData.valueVi : time.timeData.valueEn}
-                                {time?.currentNumber=== time?.maxNumber ? <i class="fas fa-exclamation-triangle detailSchedule-warn"></i> : ''}
+                                {time?.currentNumber=== time?.maxNumber ? <i className="fas fa-exclamation-triangle detailSchedule-warn"></i> : ''}
                             </button>
                         )) : (<FormattedMessage id="menu.doctor.no-schedule"/>)}
                     </div>
                     <div style={{marginBottom: '15px'}}>
-                        <i class="fas fa-exclamation-triangle" style={{color: 'red', marginRight: '8px'}}></i> 
+                        <i className="fas fa-exclamation-triangle" style={{color: 'red', marginRight: '8px'}}></i> 
                         <FormattedMessage id="menu.doctor.warn"/>
                     </div>
                     <span>
